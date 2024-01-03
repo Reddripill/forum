@@ -1,0 +1,37 @@
+.category {
+   @apply mb-[30px];
+}
+.title {
+   @apply pl-sidebar uppercase text-xs text-gray font-medium tracking-[0.24px]
+   mb-3;
+}
+.link {
+   @apply inline-block h-10 w-full relative;
+}
+.link._active {
+   @apply bg-[#FCF4EC];
+}
+.link._active .icon {
+   @apply text-orange;
+}
+.link._active .name {
+   @apply text-orange;
+}
+.link._active .select {
+   @apply block;
+}
+.link-wrapper {
+   @apply pl-sidebar flex items-center h-full;
+}
+.icon {
+   @apply mr-3;
+}
+.name {
+   @apply tracking-[0.65px] font-medium text-black text-sm grow;
+}
+.select {
+   @apply absolute top-0 left-0 h-full w-[5px] bg-orange hidden;
+}
+.society {
+   @apply mr-5 last:mr-0 text-gray hover:text-orange transition-colors duration-300;
+}

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+   @apply h-full w-full;
+}
+
+input {
+   @apply outline-none border-none;
+}
+input:focus {
+   @apply outline-none border-none;
+}

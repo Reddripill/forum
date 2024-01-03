@@ -1,0 +1,22 @@
+.row {
+   @apply flex items-center mb-[30px];
+}
+.tab {
+   @apply flex items-center mr-[10px] last:mr-0 h-[25px] min-w-[60px]
+   rounded-[100px] bg-label px-[10px];
+}
+.tab._active {
+   @apply bg-blue;
+}
+.tab._active .icon {
+   @apply text-white;
+}
+.tab._active .name {
+   @apply text-white;
+}
+.icon {
+   @apply text-gray;
+}
+.name {
+   @apply ml-[5px] text-gray text-sm tracking-[0.65px];
+}
