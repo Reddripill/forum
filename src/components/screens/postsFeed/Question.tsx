@@ -4,7 +4,7 @@ import { IAttribute } from "@/types/main.types";
 import { IPost } from "@/types/post.types";
 import { ArrowUp, Eye, MessageSquare, MoreVertical } from "lucide-react";
 import PostHeader from "@/components/UI/postHeader/PostHeader";
-import PostContent from "../post/PostContent";
+import PostContent from "../post/postContent/PostContent";
 import MainButton from "@/components/UI/button/mainButton/MainButton";
 
 interface IProps {
@@ -22,7 +22,7 @@ const Question = ({ post, classname, preview }: IProps) => {
          className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]
          w-full ${classname}`}
       >
-         <PostHeader post={post} />
+         <PostHeader author={post.attributes.author.data} />
          {preview ? (
             <Link
                href={`questions/${post.id}`}

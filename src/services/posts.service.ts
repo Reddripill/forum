@@ -18,6 +18,13 @@ class Posts {
       const post = await res.data;
       return post;
    }
+   async getAnswersByPostId(id: number | string) {
+      const res = await axios.get<IPostResponse>(
+         `http://localhost:1337/api/posts/${id}?populate[answers][populate][0]=author&populate[answers][populate][1]=parent&populate[answers][populate][2]=replies`
+      );
+      const answers = await res.data;
+      return answers;
+   }
 }
 
 const PostsService = new Posts();

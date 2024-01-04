@@ -15,12 +15,21 @@ export interface IAuthor {
    links: ILink[];
 }
 
+export interface IAnswer {
+   author: IResponseWithAttribute<IAuthor>;
+   post: IPost;
+   replies?: IResponseWithAttributes<IAnswer>;
+   parent?: IResponseWithAttribute<IAnswer>;
+   content: IContent[];
+}
+
 export interface IPost {
    title: string;
    content: IContent[];
    tags: string[];
    views: number;
    author: IResponseWithAttribute<IAuthor>;
+   answers?: IResponseWithAttributes<IAnswer>;
 }
 
 export interface IPostResponse extends IResponseWithAttribute<IPost> {}

@@ -1,0 +1,28 @@
+.wrapper {
+   @apply relative w-full mb-5 last:mb-0;
+}
+.wrapper.reply .decoration::before {
+   @apply w-[10px] bg-blue/50;
+}
+.wrapper.reply .container {
+   @apply grid-cols-[10px_1fr];
+}
+.container {
+   @apply bg-white shadow-post rounded-[5px] w-full
+   grid grid-cols-[5px_1fr];
+}
+.container.reply {
+   @apply grid-cols-[10px_1fr];
+}
+.content-block {
+   @apply my-[10px] w-full pb-[10px] border-b border-label;
+}
+.decoration {
+   @apply w-full h-full;
+}
+.decoration::before {
+   @apply absolute content-[''] top-0 left-0 h-full w-[5px] bg-orange/50;
+}
+.main {
+   @apply w-full py-5 px-10;
+}

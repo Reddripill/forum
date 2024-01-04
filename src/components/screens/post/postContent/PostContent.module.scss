@@ -1,0 +1,21 @@
+.wrapper {
+   @apply flex flex-col gap-y-5;
+}
+.text {
+   @apply text-sm text-black leading-[25px];
+}
+.wrapper span {
+   @apply text-sm text-black font-medium leading-[25px] tracking-[0.7px];
+}
+.code-field {
+   @apply bg-label py-[10px] px-4;
+}
+.code-line {
+   @apply flex items-center mb-1;
+}
+.line-number {
+   @apply pr-4 text-sm leading-[18px] text-line tracking-[0.28px];
+}
+.code-text {
+   @apply pr-4 text-sm leading-[18px] text-black tracking-[0.28px];
+}

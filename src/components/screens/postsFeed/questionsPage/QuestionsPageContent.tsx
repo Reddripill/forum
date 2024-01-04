@@ -13,7 +13,6 @@ const QuestionsPageContent = () => {
       queryKey: ["Posts"],
       queryFn: PostsService.getPosts,
    });
-   console.log(posts);
    return (
       <>
          <div className="pt-[22px] pl-[50px]">

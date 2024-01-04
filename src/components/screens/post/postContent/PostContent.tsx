@@ -1,29 +1,32 @@
-"use client";
 import { IContent } from "@/types/main.types";
 import { createContent } from "@/utils/createContent";
 import React from "react";
+import styles from "./PostContent.module.scss";
 
-const PostContent = ({ content }: { content: IContent[] }) => {
+const PostContent = ({
+   content,
+   user,
+}: {
+   content: IContent[];
+   user?: string;
+}) => {
    const parsedContent = createContent(content);
    return (
-      <div className="flex flex-col gap-y-5">
+      <div className={styles.wrapper}>
          {parsedContent.map((item, index) => {
             if (item.type === "code") {
                return (
-                  <pre
-                     key={item.type + index}
-                     className="bg-label py-[10px] px-4"
-                  >
+                  <pre key={item.type + index} className={styles["code-field"]}>
                      <code>
                         {item.children.map((codeItem, index) => (
                            <div
                               key={codeItem.text + index}
-                              className="flex items-center mb-1"
+                              className={styles["code-line"]}
                            >
-                              <div className="pr-4 text-sm leading-[18px] text-line tracking-[0.28px]">
+                              <div className={styles["line-number"]}>
                                  {index + 1}
                               </div>
-                              <div className="pr-4 text-sm leading-[18px] text-black tracking-[0.28px]">
+                              <div className={styles["code-text"]}>
                                  {codeItem.text}
                               </div>
                            </div>
@@ -33,10 +36,8 @@ const PostContent = ({ content }: { content: IContent[] }) => {
                );
             } else {
                return (
-                  <p
-                     key={item.type + index}
-                     className="text-sm text-black leading-[25px]"
-                  >
+                  <p key={item.type + index} className={styles.text}>
+                     {user && index === 0 && <span>@{user}, </span>}
                      {item.children[0].text}
                   </p>
                );

@@ -1,4 +1,3 @@
-"use client";
 import { IResponseWithAttribute } from "@/types/main.types";
 import { IAuthor } from "@/types/post.types";
 import {
@@ -12,7 +11,6 @@ import React from "react";
 import Link from "next/link";
 
 const UserCard = ({ user }: { user: IResponseWithAttribute<IAuthor> }) => {
-   console.log(user);
    return (
       <div
          className="px-5 py-[30px] bg-white shadow-card rounded-[5px] 
