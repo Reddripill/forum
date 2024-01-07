@@ -2,18 +2,9 @@ import {
    IResponseWithAttribute,
    IResponseWithAttributes,
    IContent,
+   ITag,
 } from "./main.types";
-
-export interface ILink {
-   social: string;
-   link: string;
-}
-
-export interface IAuthor {
-   username: string;
-   reputation: number;
-   links: ILink[];
-}
+import { IAuthor } from "./user.types";
 
 export interface IAnswer {
    author: IResponseWithAttribute<IAuthor>;
@@ -26,7 +17,7 @@ export interface IAnswer {
 export interface IPost {
    title: string;
    content: IContent[];
-   tags: string[];
+   tags: IResponseWithAttributes<ITag>;
    views: number;
    author: IResponseWithAttribute<IAuthor>;
    answers?: IResponseWithAttributes<IAnswer>;

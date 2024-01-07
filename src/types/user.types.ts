@@ -1,14 +1,10 @@
-export interface IUser {
-   username: string;
-   email: string;
-   password: string;
-   id: string;
-}
-export interface IUserWithJWT {
-   user: IUser;
-   jwt: string;
+export interface ILink {
+   social: string;
+   link: string;
 }
 
-export interface ILoginedUser extends IUser {
-   jwt: string;
+export interface IAuthor {
+   username: string;
+   reputation: number;
+   links: ILink[];
 }

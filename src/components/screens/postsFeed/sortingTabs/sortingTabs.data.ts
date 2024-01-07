@@ -8,12 +8,14 @@ import {
 
 export type SortingTabNameType = "New" | "Top" | "Hot" | "Closed";
 
-export interface ISortingTab {
-   name: SortingTabNameType;
+export type TagSortingTabNameType = "New" | "Top" | "Hot";
+
+export interface ISortingTab<T> {
+   name: T;
    icon: LucideIcon;
 }
 
-export const sortingTabs: ISortingTab[] = [
+export const sortingTabs: ISortingTab<SortingTabNameType>[] = [
    {
       name: "New",
       icon: Clock,
@@ -31,3 +33,8 @@ export const sortingTabs: ISortingTab[] = [
       icon: CheckCircle,
    },
 ];
+
+export const tagSortingTabs: ISortingTab<TagSortingTabNameType>[] =
+   sortingTabs.filter(
+      (tab) => tab.name !== "Closed"
+   ) as ISortingTab<TagSortingTabNameType>[];

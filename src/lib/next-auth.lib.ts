@@ -1,6 +1,6 @@
 import { ILogin, IRegister } from "@/components/screens/auth/auth.types";
 import UsersService from "@/services/users.service";
-import { ILoginedUser } from "@/types/user.types";
+import { ILoginedUser } from "@/types/auth-user.types";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 // import bcrypt from 'bcrypt'

@@ -1,4 +1,5 @@
 import React from "react";
+import { IPost } from "./post.types";
 
 export type SetStateType<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -21,4 +22,10 @@ export interface IContent {
       type: string;
    }[];
    type: string;
+}
+
+export interface ITag {
+   name: string;
+   description: string;
+   posts: IResponseWithAttributes<IPost>;
 }

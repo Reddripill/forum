@@ -1,5 +1,5 @@
 import { ILogin, IRegister } from "@/components/screens/auth/auth.types";
-import { IUserWithJWT } from "@/types/user.types";
+import { IUserWithJWT } from "@/types/auth-user.types";
 import axios from "axios";
 
 class Users {

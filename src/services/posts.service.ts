@@ -1,6 +1,6 @@
 import { ILogin, IRegister } from "@/components/screens/auth/auth.types";
 import { IPostResponse, IPostsResponse } from "@/types/post.types";
-import { IUserWithJWT } from "@/types/user.types";
+import { IUserWithJWT } from "@/types/auth-user.types";
 import axios from "axios";
 
 class Posts {

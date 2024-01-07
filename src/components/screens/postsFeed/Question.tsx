@@ -45,14 +45,15 @@ const Question = ({ post, classname, preview }: IProps) => {
          )}
          <div className="flex justify-between items-center">
             <div className="flex items-center">
-               {post.attributes.tags.map((tag) => (
-                  <div
-                     key={tag}
+               {post.attributes.tags.data.map((tag) => (
+                  <Link
+                     href={`tags/${tag.id}`}
+                     key={tag.id}
                      className="rounded-[5px] bg-label text-gray text-xs tracking-[0.5px] 
                      px-[10px] py-[5px] mr-[10px] last:mr-0"
                   >
-                     {tag}
-                  </div>
+                     {tag.attributes.name}
+                  </Link>
                ))}
             </div>
             {preview ? (

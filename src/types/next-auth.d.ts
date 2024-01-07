@@ -1,5 +1,5 @@
 import NextAuth, { DefaultSession, DefaultUser } from "next-auth";
-import { ILoginedUser, IUser } from "./user.types";
+import { ILoginedUser, IUser } from "./auth-user.types";
 import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {

@@ -18,7 +18,7 @@ const Sidebar = () => {
    };
    return (
       <div className="h-full">
-         <div className="flex flex-col h-full py-10 fixed top-0 left-0 w-[20%]">
+         <div className="flex flex-col h-full py-10 fixed top-20 left-0 w-[20%]">
             <div className="grow">
                <SearchFIeld />
                {searchFields.general.data.length !== 0 && (
