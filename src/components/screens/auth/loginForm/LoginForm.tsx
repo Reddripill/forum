@@ -12,6 +12,11 @@ const LoginForm = () => {
    const router = useRouter();
    const username = useValidate("", [
       { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      {
+         checkKey: CheckKeys.MinLength,
+         errorMessage: "Min length is",
+         value: 3,
+      },
    ]);
    const password = useValidate("", [
       { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },

@@ -1,7 +1,6 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { SetStateType } from "@/types/main.types";
-import { useState } from "react";
 import { CheckKeys } from "./validate.enum";
 
 type CheckKeysType = {
@@ -22,63 +21,50 @@ export interface IValidate {
 
 const useCheckValue = (
    value: string,
-   checkKeys: CheckKeysType[],
+   keys: CheckKeysType[],
    isPure: boolean,
    comparedValue?: string
 ) => {
-   const [error, setError] = useState<string | null>(null);
-   // console.log("testMainErron", "MainError: ", error);
+   const [error, setError] = useState<CheckKeysType[]>([]);
+   const addError = (item: CheckKeysType) => {
+      setError((prevError) => {
+         if (!prevError.find((errItem) => errItem.checkKey === item.checkKey)) {
+            return [...prevError, item];
+         }
+         return prevError;
+      });
+   };
+   const removeError = (item: CheckKeysType) => {
+      setError((prevError) =>
+         prevError.filter((errItem) => errItem.checkKey !== item.checkKey)
+      );
+   };
+   console.log(error);
    useEffect(() => {
       if (!isPure) {
-         for (const key of checkKeys) {
+         for (const key of keys) {
             switch (key.checkKey) {
                case CheckKeys.Empty:
                   {
                      if (value.length === 0) {
-                        setError(key.errorMessage);
+                        addError(key);
                      } else {
-                        setError(null);
+                        removeError(key);
                      }
-                     /* if (value.length === 0) {
-                        setError((prev) => prev.concat(key.errorMessage));
-                     } else {
-                        setError((prev) =>
-                           prev.filter((item) => item !== key.errorMessage)
-                        );
-                     } */
                   }
                   break;
                case CheckKeys.MinLength: {
                   const minLength = key.value ? key.value : 1;
                   if (value.length < minLength) {
-                     setError(key.errorMessage);
+                     addError(key);
                   } else {
-                     setError(null);
+                     removeError(key);
                   }
                }
-               /* case CheckKeys.Email:
-                  {
-                     if (value.includes("@")) {
-                        setError((prev) =>
-                           prev.filter((item) => item !== key.errorMessage)
-                        );
-                     } else {
-                        setError((prev) => prev.concat(key.errorMessage));
-                     }
-                  }
-                  break; */
             }
          }
-         /* if (comparedValue) {
-            console.log("value: ", comparedValue);
-            if (value !== comparedValue) {
-               setError("Password doesn't submitted");
-            } else {
-               setError(null);
-            }
-         } */
       }
-   }, [value, isPure, checkKeys, comparedValue]);
+   }, [value, isPure, keys]);
    return error;
 };
 
@@ -88,9 +74,11 @@ export const useValidate = (
    comparedValue?: string
 ): IValidate => {
    const [value, setValue] = useState(initialValue || "");
+   const { current: keys } = useRef(checkKeys);
    const [isPure, setIsPure] = useState(true);
-   const error = useCheckValue(value, checkKeys, isPure, comparedValue);
-   const isValid = !error && !!value;
+   const error = useCheckValue(value, keys, isPure, comparedValue);
+   const errorMessage = error.length > 0 ? error[0].errorMessage : null;
+   const isValid = !errorMessage && !!value;
    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
    };
@@ -102,7 +90,7 @@ export const useValidate = (
       setValue,
       changeHandler,
       blurHandler,
-      error,
+      error: errorMessage,
       isValid,
       isPure,
    };
