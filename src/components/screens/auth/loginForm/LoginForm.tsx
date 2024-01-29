@@ -14,10 +14,11 @@ const LoginForm = () => {
       { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
       {
          checkKey: CheckKeys.MinLength,
-         errorMessage: "Min length is",
+         errorMessage: "Min length is 3",
          value: 3,
       },
    ]);
+   console.log(username.allErrors);
    const password = useValidate("", [
       { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
    ]);

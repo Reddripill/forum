@@ -15,6 +15,7 @@ export interface IValidate {
    changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
    blurHandler: () => void;
    error: string | null;
+   allErrors: CheckKeysType[];
    isValid: boolean;
    isPure: boolean;
 }
@@ -39,7 +40,6 @@ const useCheckValue = (
          prevError.filter((errItem) => errItem.checkKey !== item.checkKey)
       );
    };
-   console.log(error);
    useEffect(() => {
       if (!isPure) {
          for (const key of keys) {
@@ -91,6 +91,7 @@ export const useValidate = (
       changeHandler,
       blurHandler,
       error: errorMessage,
+      allErrors: error,
       isValid,
       isPure,
    };
