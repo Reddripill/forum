@@ -1,0 +1,6 @@
+.wrapper {
+   @apply px-10 py-[30px] bg-white shadow-post rounded-[5px] max-w-[720px] w-full mx-auto;
+}
+.input {
+   @apply mb-5 last:mb-0;
+}

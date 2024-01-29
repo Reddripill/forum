@@ -3,7 +3,7 @@ import useAuth from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import HeaderButton from "@/components/UI/button/headerButton/HeaderButton";
-import { UserPlus } from "lucide-react";
+import { Bell, PlusCircle, UserPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -29,10 +29,21 @@ const Header = () => {
             </Link>
             <div className="pr-9 flex items-center gap-4">
                {isLoggedIn ? (
-                  <>
-                     <div>{user?.username}</div>
+                  <div className="flex items-center gap-8">
+                     <Link href="/my-questions/ask">
+                        <HeaderButton>
+                           <div className="flex items-center">
+                              <PlusCircle
+                                 className="mr-3 text-white"
+                                 size={14}
+                              />
+                              <div>Ask a question</div>
+                           </div>
+                        </HeaderButton>
+                     </Link>
+                     <Bell size={24} className="text-gray" />
                      <HeaderButton onClick={logout}>Logout</HeaderButton>
-                  </>
+                  </div>
                ) : (
                   <>
                      <Link href="/register">

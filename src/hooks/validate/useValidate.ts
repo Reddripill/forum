@@ -7,6 +7,7 @@ import { CheckKeys } from "./validate.enum";
 type CheckKeysType = {
    checkKey: CheckKeys;
    errorMessage: string;
+   value?: number;
 };
 
 export interface IValidate {
@@ -28,7 +29,6 @@ const useCheckValue = (
    const [error, setError] = useState<string | null>(null);
    // console.log("testMainErron", "MainError: ", error);
    useEffect(() => {
-      // console.log("Effect");
       if (!isPure) {
          for (const key of checkKeys) {
             switch (key.checkKey) {
@@ -48,6 +48,14 @@ const useCheckValue = (
                      } */
                   }
                   break;
+               case CheckKeys.MinLength: {
+                  const minLength = key.value ? key.value : 1;
+                  if (value.length < minLength) {
+                     setError(key.errorMessage);
+                  } else {
+                     setError(null);
+                  }
+               }
                /* case CheckKeys.Email:
                   {
                      if (value.includes("@")) {

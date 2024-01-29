@@ -30,9 +30,7 @@ const QuestionsPageContent = () => {
                </div>
             )}
          </div>
-         <div className="pt-10 px-[35px]">
-            <References />
-         </div>
+         <References />
       </>
    );
 };

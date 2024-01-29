@@ -14,7 +14,17 @@ export default function FeedLayout({
          }}
       >
          <Sidebar />
-         <div className="w-full h-full bg-light">{children}</div>
+         <div className="w-full h-full bg-light">
+            <div
+               style={{
+                  display: "grid",
+                  gridTemplateColumns: "minmax(0,2.5fr) 1fr",
+                  height: "100%",
+               }}
+            >
+               {children}
+            </div>
+         </div>
       </div>
    );
 }

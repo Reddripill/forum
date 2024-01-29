@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Input from "@/components/UI/input/Input";
+import AuthInput from "@/components/UI/authInput/AuthInput";
 import Button from "@/components/UI/button/headerButton/HeaderButton";
 import { useValidate } from "@/hooks/validate/useValidate";
 import { CheckKeys } from "@/hooks/validate/validate.enum";
@@ -38,13 +38,13 @@ const LoginForm = () => {
             Get more features and priviliges by joining to the most helpful
             community
          </div>
-         <Input
+         <AuthInput
             name="Username"
             type="text"
             validate={username}
             className="mb-4"
          />
-         <Input
+         <AuthInput
             name="Password"
             type="password"
             validate={password}

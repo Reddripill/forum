@@ -9,8 +9,8 @@ import { IAuthor } from "./user.types";
 export interface IAnswer {
    author: IResponseWithAttribute<IAuthor>;
    post: IPost;
-   replies?: IResponseWithAttributes<IAnswer>;
-   parent?: IResponseWithAttribute<IAnswer>;
+   replies: IResponseWithAttributes<IAnswer>;
+   parent: IResponseWithAttribute<IAnswer | null>;
    content: IContent[];
 }
 

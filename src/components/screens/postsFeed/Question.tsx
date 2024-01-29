@@ -1,3 +1,4 @@
+// "use client";
 import React from "react";
 import Link from "next/link";
 import { IAttribute } from "@/types/main.types";
@@ -17,6 +18,7 @@ const Question = ({ post, classname, preview }: IProps) => {
    const firstParagraph = post.attributes.content.find(
       (text) => text.type === "paragraph"
    );
+   // console.log("Question content: ", post.attributes.content);
    return (
       <div
          className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]

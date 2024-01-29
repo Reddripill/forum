@@ -1,21 +1,19 @@
 .input {
-   @apply relative border border-border rounded-main px-4 h-[42px]
-   transition-all duration-300 ease-in-out;
+   @apply w-full flex flex-col items-end;
 }
-.input._active {
-   @apply border-blue shadow-focused;
-}
-.input._active .label {
-   @apply top-0 tracking-[0.16px] pointer-events-auto text-xs bg-white px-1
-   left-3 text-blue;
-}
-.label {
-   @apply absolute top-1/2 left-4 -translate-y-1/2 text-sm font-light text-gray
-   tracking-[0.26px] pointer-events-none transition-all duration-200 ease-in-out;
+.input._active .input-field {
+   @apply border-orange;
 }
 .input-field {
-   @apply w-full h-full text-sm text-black tracking-[0.26px];
+   @apply appearance-none w-full h-[34px] rounded-[5px] border-2 border-label px-[10px]
+   transition-colors duration-300;
 }
-.validation {
-   @apply absolute top-1/2 right-4 -translate-y-1/2;
+.input-field,
+.input-field::placeholder {
+   @apply text-sm font-light text-gray;
 }
+
+/* .error {
+   @apply border-2 border-black;
+}
+ */

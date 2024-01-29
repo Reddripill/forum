@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import Input from "@/components/UI/input/Input";
+import AuthInput from "@/components/UI/authInput/AuthInput";
 import Button from "@/components/UI/button/headerButton/HeaderButton";
 import { useValidate } from "@/hooks/validate/useValidate";
 import { CheckKeys } from "@/hooks/validate/validate.enum";
@@ -50,20 +50,25 @@ const RegisterForm = () => {
             Get more features and priviliges by joining to the most helpful
             community
          </div>
-         <Input
+         <AuthInput
             name="Username"
             type="text"
             className="mb-4"
             validate={username}
          />
-         <Input name="Email" type="email" validate={email} className="mb-4" />
-         <Input
+         <AuthInput
+            name="Email"
+            type="email"
+            validate={email}
+            className="mb-4"
+         />
+         <AuthInput
             name="Password"
             type="password"
             validate={password}
             className="mb-4"
          />
-         <Input
+         <AuthInput
             name="Repeat Password"
             type="password"
             validate={submittedPassword}
