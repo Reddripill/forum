@@ -1,12 +1,91 @@
+"use client";
 import React from "react";
 import styles from "./QuestionForm.module.scss";
 import Input from "@/components/UI/input/Input";
+import { useValidate } from "@/hooks/validate/useValidate";
+import { CheckKeys } from "@/hooks/validate/validate.enum";
+// import TextArea from "@/components/UI/textarea/TextArea";
+import MainButton from "@/components/UI/button/mainButton/MainButton";
+import { Image, Send } from "lucide-react";
+import PostsService from "@/services/posts.service";
+import useAuth from "@/hooks/useAuth";
+import { ILoginedUser } from "@/types/auth-user.types";
+import Tiptap from "@/components/UI/tiptap/Tiptap";
+import { transformToStrapiEditor } from "@/utils/transformRichtext";
+import { IContent } from "@/types/editor.types";
 
 const QuestionForm = () => {
+   const { user, status } = useAuth();
+   const tags = useValidate("", [
+      /* {
+         checkKey: CheckKeys.MinLength,
+         value: 3,
+         errorMessage: `Insufficient number of characters`,
+      }, */
+   ]);
+   const title = useValidate("", [
+      {
+         checkKey: CheckKeys.MinLength,
+         value: 3,
+         errorMessage: `Insufficient number of characters`,
+      },
+   ]);
+   const text = useValidate("", [
+      {
+         checkKey: CheckKeys.MinLength,
+         value: 10,
+         errorMessage: `Insufficient number of characters`,
+      },
+   ]);
+   const disabled =
+      !title.isValid || !text.isValid || !title.isValid || !text.isValid;
    return (
       <div className={styles.wrapper}>
-         <Input className={styles.input} placeholder="Choose categories" />
-         <Input className={styles.input} placeholder="Type catching attention title" />
+         <div className="mb-8">
+            <Input
+               className={styles.item}
+               placeholder="Choose categories"
+               validate={tags}
+            />
+            <Input
+               className={styles.item}
+               placeholder="Type catching attention title"
+               validate={title}
+            />
+            {/* <TextArea
+               className={`h-[350px] ${styles.item}`}
+               validate={text}
+               placeholder="Type your question"
+            /> */}
+            <Tiptap text={text.value} onChange={text.setValue} />
+         </div>
+         <div className="flex items-center justify-between">
+            <MainButton color="blue">
+               <Image size={14} className="mr-3" />
+               <div>Add Image</div>
+            </MainButton>
+            <div className="flex items-center gap-x-5">
+               <MainButton color="gray" disabled={disabled}>
+                  Save as draft
+               </MainButton>
+               <MainButton
+                  color="orange"
+                  disabled={disabled}
+                  onClick={() => {
+                     PostsService.createPost({
+                        author: user as ILoginedUser,
+                        title: title.value,
+                        content: transformToStrapiEditor(
+                           text.value
+                        ) as IContent[],
+                     });
+                  }}
+               >
+                  <Send size={14} className="mr-3" />
+                  <div>Publish</div>
+               </MainButton>
+            </div>
+         </div>
       </div>
    );
 };

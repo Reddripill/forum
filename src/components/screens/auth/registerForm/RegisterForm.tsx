@@ -55,6 +55,7 @@ const RegisterForm = () => {
             type="text"
             className="mb-4"
             validate={username}
+            autoFocus
          />
          <AuthInput
             name="Email"

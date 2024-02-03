@@ -16,9 +16,10 @@ const Sidebar = () => {
       if (pathname === "/" && link === "/questions") return true;
       return pathname.includes(link);
    };
+   // w-[20%]
    return (
       <div className="h-full">
-         <div className="flex flex-col h-[calc(100%-80px)] py-10 fixed top-20 left-0 w-[20%]">
+         <div className="flex flex-col h-[calc(100%-80px)] py-10 fixed top-20 left-0 w-[310px]">
             <div className="grow">
                <SearchFIeld />
                {searchFields.general.data.length !== 0 && (

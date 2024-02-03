@@ -1,26 +1,40 @@
-import { ILogin, IRegister } from "@/components/screens/auth/auth.types";
-import { IPostResponse, IPostsResponse } from "@/types/post.types";
-import { IUserWithJWT } from "@/types/auth-user.types";
-import axios from "axios";
+import {
+   ICreationPostParams,
+   IPostResponse,
+   IPostsResponse,
+} from "@/types/post.types";
+import { axiosInstance } from "../../axios.config";
 
 class Posts {
    async getPosts() {
-      const res = await axios.get<IPostsResponse>(
-         `http://localhost:1337/api/posts?populate=*`
-      );
+      const res = await axiosInstance.get<IPostsResponse>(`/posts?populate=*`);
       const posts = await res.data;
       return posts;
    }
+   async createPost({ author, content, title, tags }: ICreationPostParams) {
+      console.log("author: ", author);
+      const body = {
+         data: {
+            title,
+            content,
+            views: 0,
+            author: {
+               connect: [author.id],
+            },
+         },
+      };
+      const res = await axiosInstance.post(`/posts`, body);
+   }
    async getPostById(id: number | string) {
-      const res = await axios.get<IPostResponse>(
-         `http://localhost:1337/api/posts/${id}?populate=*`
+      const res = await axiosInstance.get<IPostResponse>(
+         `/posts/${id}?populate=*`
       );
       const post = await res.data;
       return post;
    }
    async getAnswersByPostId(id: number | string) {
-      const res = await axios.get<IPostResponse>(
-         `http://localhost:1337/api/posts/${id}?populate[answers][populate][0]=author&populate[answers][populate][1]=parent&populate[answers][populate][2]=replies`
+      const res = await axiosInstance.get<IPostResponse>(
+         `/posts/${id}?populate[0]=answers.author&populate[1]=answers.parent&populate[2]=answers.replies&populate[3]=answers.post&populate[4]=answers.post.author&populate[5]=answers.parent.author`
       );
       const answers = await res.data;
       return answers;

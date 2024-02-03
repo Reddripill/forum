@@ -1,0 +1,12 @@
+.wrapper {
+   @apply flex items-center p-2 gap-x-1;
+}
+.mark {
+   @apply p-2 flex items-center justify-center hover:bg-label transition-colors duration-300 rounded-[5px];
+}
+.mark._active {
+   @apply bg-label;
+}
+.icon {
+   @apply text-sm;
+}

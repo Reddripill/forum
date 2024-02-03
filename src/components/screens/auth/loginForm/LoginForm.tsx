@@ -18,7 +18,6 @@ const LoginForm = () => {
          value: 3,
       },
    ]);
-   console.log(username.allErrors);
    const password = useValidate("", [
       { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
    ]);
@@ -49,6 +48,7 @@ const LoginForm = () => {
             type="text"
             validate={username}
             className="mb-4"
+            autoFocus={true}
          />
          <AuthInput
             name="Password"

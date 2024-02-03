@@ -5,7 +5,7 @@
    hover:bg-orange/70 disabled:opacity-50 disabled:pointer-events-none;
 }
 .button.gray {
-   @apply text-blue bg-[#EAEAEA] hover:bg-[#EAEAEA]/70;
+   @apply text-gray font-normal bg-[#EAEAEA] hover:bg-[#EAEAEA]/70;
 }
 .button.blue {
    @apply text-white bg-blue hover:bg-blue/70;

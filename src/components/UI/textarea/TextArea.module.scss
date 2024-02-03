@@ -1,0 +1,21 @@
+.textarea {
+   @apply w-full min-h-[200px] relative;
+}
+.textarea._active .textarea-field {
+   @apply border-orange;
+}
+.textarea._error .textarea-field {
+   @apply border-error;
+}
+.textarea-field {
+   @apply appearance-none w-full h-full rounded-[5px] border-2 border-label p-[10px]
+   transition-colors duration-300 resize-none;
+}
+.textarea-field,
+.textarea-field::placeholder {
+   @apply text-sm font-light text-gray;
+}
+
+.error {
+   @apply absolute top-full right-0 text-error text-xs tracking-[0.2px] font-medium leading-[20px];
+}

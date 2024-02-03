@@ -6,6 +6,7 @@ const useAuth = () => {
    return {
       user: data?.user,
       isLoggedIn: status === "authenticated",
+      status,
    };
 };
 

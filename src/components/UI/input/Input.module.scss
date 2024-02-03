@@ -1,8 +1,11 @@
 .input {
-   @apply w-full flex flex-col items-end;
+   @apply w-full relative;
 }
 .input._active .input-field {
    @apply border-orange;
+}
+.input._error .input-field {
+   @apply border-error;
 }
 .input-field {
    @apply appearance-none w-full h-[34px] rounded-[5px] border-2 border-label px-[10px]
@@ -13,7 +16,6 @@
    @apply text-sm font-light text-gray;
 }
 
-/* .error {
-   @apply border-2 border-black;
+.error {
+   @apply absolute top-full right-0 text-error text-xs tracking-[0.2px] font-medium leading-[20px];
 }
- */

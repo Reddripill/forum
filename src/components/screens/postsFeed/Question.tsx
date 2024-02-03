@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import React from "react";
 import Link from "next/link";
 import { IAttribute } from "@/types/main.types";
@@ -18,7 +18,9 @@ const Question = ({ post, classname, preview }: IProps) => {
    const firstParagraph = post.attributes.content.find(
       (text) => text.type === "paragraph"
    );
-   // console.log("Question content: ", post.attributes.content);
+   if (post.id === 3) {
+      console.log("post: ", post);
+   }
    return (
       <div
          className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]
@@ -47,16 +49,17 @@ const Question = ({ post, classname, preview }: IProps) => {
          )}
          <div className="flex justify-between items-center">
             <div className="flex items-center">
-               {post.attributes.tags.data.map((tag) => (
-                  <Link
-                     href={`tags/${tag.id}`}
-                     key={tag.id}
-                     className="rounded-[5px] bg-label text-gray text-xs tracking-[0.5px] 
+               {post.attributes.tags.data.length > 0 &&
+                  post.attributes.tags.data.map((tag) => (
+                     <Link
+                        href={`tags/${tag.id}`}
+                        key={tag.id}
+                        className="rounded-[5px] bg-label text-gray text-xs tracking-[0.5px] 
                      px-[10px] py-[5px] mr-[10px] last:mr-0"
-                  >
-                     {tag.attributes.name}
-                  </Link>
-               ))}
+                     >
+                        {tag.attributes.name}
+                     </Link>
+                  ))}
             </div>
             {preview ? (
                <div className="flex items-center">

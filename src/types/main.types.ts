@@ -16,12 +16,8 @@ export interface IResponseWithAttribute<T> {
    data: IAttribute<T>;
 }
 
-export interface IContent {
-   children: {
-      text: string;
-      type: string;
-   }[];
-   type: string;
+export interface IResponseWithoutData {
+   data: null;
 }
 
 export interface ITag {

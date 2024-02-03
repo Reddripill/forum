@@ -9,7 +9,7 @@ export default function FeedLayout({
       <div
          style={{
             display: "grid",
-            gridTemplateColumns: "1fr 4fr",
+            gridTemplateColumns: "310px 4fr",
             height: "100%",
          }}
       >
@@ -18,7 +18,7 @@ export default function FeedLayout({
             <div
                style={{
                   display: "grid",
-                  gridTemplateColumns: "minmax(0,2.5fr) 1fr",
+                  gridTemplateColumns: "minmax(0,2.5fr) 340px",
                   height: "100%",
                }}
             >

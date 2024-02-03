@@ -7,9 +7,15 @@ body {
    @apply h-full w-full;
 }
 
-input {
+input,
+textarea {
    @apply outline-none;
 }
-input:focus {
+input:focus,
+textarea:focus {
    @apply outline-none;
+}
+
+.ProseMirror:focus {
+   outline: none;
 }

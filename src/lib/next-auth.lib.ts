@@ -30,7 +30,6 @@ export const authOptions: NextAuthOptions = {
                const loginedUser = await UsersService.loginUser(
                   credentials as ILogin
                );
-               // console.log("USER: ", loginedUser);
                if (loginedUser) {
                   return {
                      ...loginedUser.user,

@@ -1,4 +1,4 @@
-import { IContent } from "@/types/main.types";
+import { IContent } from "@/types/editor.types";
 import { createContent } from "@/utils/createContent";
 import React from "react";
 import styles from "./PostContent.module.scss";

@@ -1,3 +1,4 @@
+"use client";
 import PostHeader from "@/components/UI/postHeader/PostHeader";
 import { IAttribute } from "@/types/main.types";
 import { IAnswer } from "@/types/post.types";
@@ -29,8 +30,11 @@ const AnswerItem = ({ answer }: { answer: IAttribute<IAnswer> }) => {
                   <PostContent
                      content={answer.attributes.content}
                      user={
-                        answer.attributes.parent.data &&
-                        answer.attributes.author.data.attributes.username
+                        answer.attributes.parent.data
+                           ? answer.attributes.parent.data.attributes.author
+                                .data.attributes.username
+                           : answer.attributes.post.data.attributes.author.data
+                                .attributes.username
                      }
                   />
                </div>

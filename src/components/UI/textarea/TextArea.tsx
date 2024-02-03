@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import styles from "./Input.module.scss";
+import styles from "./TextArea.module.scss";
 import cn from "classnames";
 import { IValidate } from "@/hooks/validate/useValidate";
 
@@ -10,19 +10,18 @@ interface IProps {
    placeholder?: string;
 }
 
-const Input = ({ className, placeholder, validate }: IProps) => {
+const TextArea = ({ className, placeholder, validate }: IProps) => {
    const [isFocused, setIsFocused] = useState(false);
 
    return (
       <div
-         className={cn(styles.input, className, {
+         className={cn(styles.textarea, className, {
             [styles._active]: isFocused,
             [styles._error]: validate.error,
          })}
       >
-         <input
-            type="text"
-            className={cn(styles["input-field"])}
+         <textarea
+            className={cn(styles["textarea-field"])}
             value={validate.value}
             onChange={validate.changeHandler}
             onFocus={() => setIsFocused(true)}
@@ -39,4 +38,4 @@ const Input = ({ className, placeholder, validate }: IProps) => {
    );
 };
 
-export default Input;
+export default TextArea;

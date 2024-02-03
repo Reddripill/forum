@@ -12,7 +12,9 @@ type CheckKeysType = {
 export interface IValidate {
    value: string;
    setValue: SetStateType<string>;
-   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+   changeHandler: (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+   ) => void;
    blurHandler: () => void;
    error: string | null;
    allErrors: CheckKeysType[];
@@ -79,7 +81,9 @@ export const useValidate = (
    const error = useCheckValue(value, keys, isPure, comparedValue);
    const errorMessage = error.length > 0 ? error[0].errorMessage : null;
    const isValid = !errorMessage && !!value;
-   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+   const changeHandler = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+   ) => {
       setValue(e.target.value);
    };
    const blurHandler = () => {

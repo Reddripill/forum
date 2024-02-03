@@ -25,7 +25,6 @@ class Users {
       );
       const user = await res.data;
       return user;
-      console.log(`User ${credentials.username} registered!`);
    }
 }
 
