@@ -1,10 +1,27 @@
 import { IResponseWithAttributes, ITag } from "@/types/main.types";
-import axios from "axios";
+import { axiosInstance } from "../../axios.config";
 
 class Tags {
    async getTags() {
-      const res = await axios.get<IResponseWithAttributes<ITag>>(
-         `http://localhost:1337/api/tags?populate=*`
+      const res = await axiosInstance.get<IResponseWithAttributes<ITag>>(
+         `/tags?populate=*`
+      );
+      const tags = await res.data;
+      return tags;
+   }
+   async getTagsByInput(input: string) {
+      const res = await axiosInstance.get<IResponseWithAttributes<ITag>>(
+         `/tags?filters[name][$contains]=${input}&populate=*`,
+         {
+            transformResponse: [
+               (response) => {
+                  const resp = JSON.parse(
+                     response
+                  ) as IResponseWithAttributes<ITag>;
+                  return resp.data.map((item) => item.attributes.name);
+               },
+            ],
+         }
       );
       const tags = await res.data;
       return tags;

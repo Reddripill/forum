@@ -4,7 +4,6 @@ import styles from "./QuestionForm.module.scss";
 import Input from "@/components/UI/input/Input";
 import { useValidate } from "@/hooks/validate/useValidate";
 import { CheckKeys } from "@/hooks/validate/validate.enum";
-// import TextArea from "@/components/UI/textarea/TextArea";
 import MainButton from "@/components/UI/button/mainButton/MainButton";
 import { Image, Send } from "lucide-react";
 import PostsService from "@/services/posts.service";
@@ -13,6 +12,15 @@ import { ILoginedUser } from "@/types/auth-user.types";
 import Tiptap from "@/components/UI/tiptap/Tiptap";
 import { transformToStrapiEditor } from "@/utils/transformRichtext";
 import { IContent } from "@/types/editor.types";
+import Select from "@/components/UI/select/Select";
+import SelectOption from "@/components/UI/select/SelectOption";
+import cn from "classnames";
+import TagsService from "@/services/tags.service";
+
+interface Test {
+   test?: React.ElementType;
+   // test2?: React.ComponentPropsWithRef;
+}
 
 const QuestionForm = () => {
    const { user, status } = useAuth();
@@ -42,6 +50,16 @@ const QuestionForm = () => {
    return (
       <div className={styles.wrapper}>
          <div className="mb-8">
+            <Select
+               placeholder="Choose tags"
+               isSearchable={true}
+               isMultiple={true}
+               classnames={cn(
+                  "w-full h-[34px] rounded-[5px] border-2 border-label px-[10px]",
+                  styles.item
+               )}
+               inputHandler={TagsService.getTagsByInput}
+            ></Select>
             <Input
                className={styles.item}
                placeholder="Choose categories"
@@ -52,11 +70,6 @@ const QuestionForm = () => {
                placeholder="Type catching attention title"
                validate={title}
             />
-            {/* <TextArea
-               className={`h-[350px] ${styles.item}`}
-               validate={text}
-               placeholder="Type your question"
-            /> */}
             <Tiptap text={text.value} onChange={text.setValue} />
          </div>
          <div className="flex items-center justify-between">

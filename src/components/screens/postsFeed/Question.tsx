@@ -18,9 +18,9 @@ const Question = ({ post, classname, preview }: IProps) => {
    const firstParagraph = post.attributes.content.find(
       (text) => text.type === "paragraph"
    );
-   if (post.id === 3) {
+   /* if (post.id === 3) {
       console.log("post: ", post);
-   }
+   } */
    return (
       <div
          className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]

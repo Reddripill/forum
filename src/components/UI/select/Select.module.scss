@@ -1,0 +1,34 @@
+.wrapper {
+   @apply relative;
+   /* transition-colors duration-300 */
+}
+.wrapper._active {
+   @apply border-orange;
+}
+.wrapper._active .chevron {
+   @apply rotate-180;
+}
+.button {
+   @apply w-full h-full cursor-default;
+}
+.input {
+   @apply w-full;
+}
+.input,
+.input::placeholder {
+   @apply text-sm font-light text-gray cursor-default;
+}
+.options {
+   @apply absolute top-[calc(100%+8px)] left-0 w-full z-10 
+   shadow-select bg-white rounded-[5px] overflow-auto;
+}
+.item {
+   @apply cursor-pointer px-[10px] py-[6px] transition-colors duration-300
+   hover:bg-[#FCF4EC];
+}
+.item._selected {
+   @apply bg-orange text-white;
+}
+.chevron {
+   @apply cursor-pointer;
+}
