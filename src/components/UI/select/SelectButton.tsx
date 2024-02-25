@@ -4,6 +4,7 @@ import { SetStateType } from "@/types/main.types";
 import { ChevronDown, X } from "lucide-react";
 import styles from "./Select.module.scss";
 import cn from "classnames";
+import { IControlledValue } from "./select.types";
 
 interface IProps {
    placeholder: string;
@@ -28,8 +29,8 @@ const SelectButton = forwardRef<HTMLButtonElement, IProps>(function SelecButton(
    const removeItem = (e: React.MouseEvent, value: string) => {
       // e.stopPropagation();
       setValue((prev) => {
-         const filteredValue = (prev as string[]).filter(
-            (item) => item !== value
+         const filteredValue = (prev as IControlledValue[]).filter(
+            (item) => item.name !== value
          );
          if (filteredValue.length === 0) {
             return null;
@@ -48,15 +49,15 @@ const SelectButton = forwardRef<HTMLButtonElement, IProps>(function SelecButton(
                <div className="flex items-center">
                   {value && (
                      <div className="flex items-center gap-x-1 mr-2">
-                        {(value as string[]).map((item) => (
+                        {(value as IControlledValue[]).map((item) => (
                            <div
-                              key={item}
+                              key={item.id}
                               className="flex items-center text-sm bg-label px-1 gap-x-[2px]"
                            >
-                              <div>{item}</div>
+                              <div>{item.name}</div>
                               <X
                                  size={12}
-                                 onClick={(e) => removeItem(e, item)}
+                                 onClick={(e) => removeItem(e, item.name)}
                                  className="cursor-pointer"
                               />
                            </div>
@@ -73,7 +74,7 @@ const SelectButton = forwardRef<HTMLButtonElement, IProps>(function SelecButton(
                </div>
             ) : (
                <div className="text-sm font-light text-gray">
-                  {value || placeholder}
+                  {(value as IControlledValue).name || placeholder}
                </div>
             )}
             <div className={styles.chevron}>

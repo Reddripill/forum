@@ -1,26 +1,19 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
 import { SetStateType } from "@/types/main.types";
+import { SelectValuesType } from "@/components/UI/select/select.types";
 
 interface IContextValue {
-   value: string | string[] | null;
-   setValue: SetStateType<string | string[] | null>;
-   // content: string;
+   value: SelectValuesType;
+   setValue: SetStateType<SelectValuesType>;
 }
-const func = (): never => {
-   return func();
-};
+interface IProps extends IContextValue {
+   children: React.ReactNode;
+}
 
 const SelectContext = createContext<IContextValue | null>(null);
 
-const SelectProvider = ({
-   children,
-   defaultValue,
-}: {
-   children: React.ReactNode;
-   defaultValue: string | string[] | null;
-}) => {
-   const [value, setValue] = useState<string | string[] | null>(defaultValue);
+const SelectProvider = ({ children, value, setValue }: IProps) => {
    return (
       <SelectContext.Provider value={{ value, setValue }}>
          {children}

@@ -21,6 +21,9 @@ class Posts {
             author: {
                connect: [author.id],
             },
+            tags: {
+               connect: tags,
+            },
          },
       };
       const res = await axiosInstance.post(`/posts`, body);

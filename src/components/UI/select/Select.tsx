@@ -13,40 +13,38 @@ import styles from "./Select.module.scss";
 import { useOutside } from "@/hooks/useOutside";
 import SelectOptions from "./SelectOptions";
 import { useDebounce } from "@/hooks/useDebounce";
-
-interface IProps {
-   children?: React.JSX.Element | React.JSX.Element[];
-   defaultValue?: any;
-   placeholder: string;
-   isMultiple?: boolean;
-   isSearchable?: boolean;
-   classnames?: string;
-   maxOptions?: number;
-   inputHandler?: (val: any) => Promise<any>;
-}
+import { IControlledValue, ISelectProps } from "./select.types";
 
 const Select = ({
    children,
-   defaultValue = null,
    maxOptions = 3,
    placeholder,
    isMultiple,
    isSearchable,
    classnames,
    inputHandler: inputHandlerProp,
-}: IProps) => {
+   value,
+   setValue,
+}: ISelectProps) => {
    const [text, setText] = useState(isSearchable ? "" : null);
-   const [controlledOptions, setControlledOptions] = useState<string[]>([]);
    const [isShow, setIsShow] = useState(false);
+   const [controlledOptions, setControlledOptions] = useState<
+      IControlledValue[]
+   >([]);
    const debouncedValue = useDebounce(text, 200);
    const buttonRef = useRef<HTMLButtonElement>(null);
    const closeOptions = () => {
       setIsShow(false);
    };
+   const clearSearchText = () => {
+      if (text) {
+         setText("");
+      }
+   };
    const selectRef = useOutside<HTMLDivElement>(closeOptions);
    useEffect(() => {
       let isIgnore = false;
-      if (debouncedValue && inputHandlerProp) {
+      if (debouncedValue && inputHandlerProp && setControlledOptions) {
          inputHandlerProp(debouncedValue).then((data) => {
             if (!isIgnore) {
                setControlledOptions(data);
@@ -56,7 +54,7 @@ const Select = ({
       return () => {
          isIgnore = true;
       };
-   }, [debouncedValue, inputHandlerProp]);
+   }, [debouncedValue, inputHandlerProp, setControlledOptions]);
    return (
       <div
          className={cn(classnames, styles.wrapper, {
@@ -64,7 +62,7 @@ const Select = ({
          })}
          ref={selectRef}
       >
-         <SelectProvider defaultValue={defaultValue}>
+         <SelectProvider value={value} setValue={setValue}>
             <SelectButton
                placeholder={placeholder}
                setIsShow={setIsShow}
@@ -91,6 +89,7 @@ const Select = ({
                         closeOptions={closeOptions}
                         isMultiple={isMultiple}
                         maxOptions={maxOptions}
+                        clearSearchText={clearSearchText}
                      />
                   )}
                </div>

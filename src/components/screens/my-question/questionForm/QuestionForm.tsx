@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./QuestionForm.module.scss";
 import Input from "@/components/UI/input/Input";
 import { useValidate } from "@/hooks/validate/useValidate";
@@ -13,9 +13,12 @@ import Tiptap from "@/components/UI/tiptap/Tiptap";
 import { transformToStrapiEditor } from "@/utils/transformRichtext";
 import { IContent } from "@/types/editor.types";
 import Select from "@/components/UI/select/Select";
-import SelectOption from "@/components/UI/select/SelectOption";
 import cn from "classnames";
 import TagsService from "@/services/tags.service";
+import {
+   IControlledValue,
+   SelectValuesType,
+} from "@/components/UI/select/select.types";
 
 interface Test {
    test?: React.ElementType;
@@ -23,14 +26,8 @@ interface Test {
 }
 
 const QuestionForm = () => {
-   const { user, status } = useAuth();
-   const tags = useValidate("", [
-      /* {
-         checkKey: CheckKeys.MinLength,
-         value: 3,
-         errorMessage: `Insufficient number of characters`,
-      }, */
-   ]);
+   const [tags, setTags] = useState<SelectValuesType>(null);
+   const { user } = useAuth();
    const title = useValidate("", [
       {
          checkKey: CheckKeys.MinLength,
@@ -59,12 +56,9 @@ const QuestionForm = () => {
                   styles.item
                )}
                inputHandler={TagsService.getTagsByInput}
+               value={tags}
+               setValue={setTags}
             ></Select>
-            <Input
-               className={styles.item}
-               placeholder="Choose categories"
-               validate={tags}
-            />
             <Input
                className={styles.item}
                placeholder="Type catching attention title"
@@ -91,6 +85,10 @@ const QuestionForm = () => {
                         content: transformToStrapiEditor(
                            text.value
                         ) as IContent[],
+                        tags: tags
+                           ? (tags as IControlledValue[]).map((item) => item.id)
+                           : undefined,
+                        // change
                      });
                   }}
                >

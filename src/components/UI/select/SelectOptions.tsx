@@ -1,12 +1,14 @@
 // import { useSelectContext } from "@/providers/SelectProvider";
 import React from "react";
 import SelectOption from "./SelectOption";
+import { IControlledValue } from "./select.types";
 
 interface IProps {
-   options: string[];
+   options: IControlledValue[];
+   maxOptions: number;
    closeOptions: () => void;
    isMultiple?: boolean;
-   maxOptions: number;
+   clearSearchText?: () => void;
 }
 
 const SelectOptions = ({
@@ -14,6 +16,7 @@ const SelectOptions = ({
    closeOptions,
    isMultiple,
    maxOptions,
+   clearSearchText,
 }: IProps) => {
    return (
       <>
@@ -22,17 +25,18 @@ const SelectOptions = ({
                {options.map((option) => (
                   <SelectOption
                      value={option}
-                     key={option}
+                     key={option.id}
                      maxOptions={maxOptions}
                      isMultiple={isMultiple}
                      closeOptions={closeOptions}
+                     clearSearchText={clearSearchText}
                   >
-                     {option}
+                     {option.name}
                   </SelectOption>
                ))}
             </>
          ) : (
-            <div>No Result</div>
+            <div className="text-center py-4">No Result</div>
          )}
       </>
    );
