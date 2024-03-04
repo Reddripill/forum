@@ -24,17 +24,13 @@ const Tiptap = ({
             class: `h-[350px] p-[10px] transition-colors duration-300`,
          },
       },
-      onUpdate: ({ editor, transaction }) => {
+      onUpdate: ({ editor }) => {
          onChange(editor.getHTML());
-         // console.log("value as HTML: ", editor.getHTML());
-         // console.log("value as string: ", editor.getHTML().toString());
          console.log("value as json: ", editor.getJSON());
-         // console.log("value as text: ", editor.getText());
-         // console.log("transaction: ", transaction);
       },
    });
    return (
-      <div className="border-2 border-label rounded-[5px] overflow-auto">
+      <div className="border-2 border-label rounded-[5px] overflow-auto text-sm">
          <TiptapToolbar
             classname="border-b-[1px] border-label"
             editor={editor}

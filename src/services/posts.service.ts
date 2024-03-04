@@ -1,18 +1,17 @@
-import {
-   ICreationPostParams,
-   IPostResponse,
-   IPostsResponse,
-} from "@/types/post.types";
+import { IAnswer, ICreationPostParams, IPost } from "@/types/post.types";
 import { axiosInstance } from "../../axios.config";
+import { IResponse } from "@/types/main.types";
 
 class Posts {
    async getPosts() {
-      const res = await axiosInstance.get<IPostsResponse>(`/posts?populate=*`);
+      const res = await axiosInstance.get<IResponse<IPost[]>>(
+         `/posts?populate=*`
+      );
       const posts = await res.data;
-      return posts;
+      console.log("service post: ", posts);
+      return posts.data;
    }
    async createPost({ author, content, title, tags }: ICreationPostParams) {
-      console.log("author: ", author);
       const body = {
          data: {
             title,
@@ -28,19 +27,20 @@ class Posts {
       };
       const res = await axiosInstance.post(`/posts`, body);
    }
-   async getPostById(id: number | string) {
-      const res = await axiosInstance.get<IPostResponse>(
-         `/posts/${id}?populate=*`
-      );
+   async getPostById(id: string) {
+      const res = await axiosInstance.get<IPost>(`/posts/${id}?populate=*`);
       const post = await res.data;
       return post;
    }
    async getAnswersByPostId(id: number | string) {
-      const res = await axiosInstance.get<IPostResponse>(
-         `/posts/${id}?populate[0]=answers.author&populate[1]=answers.parent&populate[2]=answers.replies&populate[3]=answers.post&populate[4]=answers.post.author&populate[5]=answers.parent.author`
-      );
-      const answers = await res.data;
-      return answers;
+      const res = await axiosInstance.get<IPost>(`/posts/${id}`);
+      const post = await res.data;
+      return post.answers;
+   }
+   async getRepliesByAnswerId(id: number | string) {
+      const res = await axiosInstance.get<IAnswer>(`/answers/${id}`);
+      const post = await res.data;
+      return post.replies;
    }
 }
 

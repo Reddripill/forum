@@ -17,9 +17,9 @@ const QuestionsPageContent = () => {
       <>
          <div className="pt-[22px] pl-[50px]">
             <SortingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-            {posts?.data && posts.data.length > 0 && (
+            {posts && posts.length > 0 && (
                <div>
-                  {posts.data.map((post) => (
+                  {posts.map((post) => (
                      <Question
                         key={post.id}
                         post={post}

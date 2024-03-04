@@ -1,28 +1,24 @@
 import { ILoginedUser } from "./auth-user.types";
 import { IContent } from "./editor.types";
-import {
-   IResponseWithAttribute,
-   IResponseWithAttributes,
-   ITag,
-   IResponseWithoutData,
-} from "./main.types";
 import { IAuthor } from "./user.types";
 
 export interface IAnswer {
-   author: IResponseWithAttribute<IAuthor>;
-   post: IPostResponse;
-   replies: IResponseWithAttributes<IAnswer>;
-   parent: IResponseWithAttribute<IAnswer> | IResponseWithoutData;
+   id: string;
+   author: IAuthor;
+   post: IPost;
+   replies: IAnswer[];
+   parent: IAnswer | null;
    content: IContent[];
 }
 
 export interface IPost {
+   id: string;
    title: string;
    content: IContent[];
-   tags: IResponseWithAttributes<ITag>;
+   tags: ITag[];
    views: number;
-   author: IResponseWithAttribute<IAuthor>;
-   answers?: IResponseWithAttributes<IAnswer>;
+   author: IAuthor;
+   answers?: IAnswer[];
 }
 export interface ICreationPostParams {
    title: string;
@@ -31,6 +27,9 @@ export interface ICreationPostParams {
    author: ILoginedUser;
 }
 
-export interface IPostResponse extends IResponseWithAttribute<IPost> {}
-
-export interface IPostsResponse extends IResponseWithAttributes<IPost> {}
+export interface ITag {
+   id: string;
+   name: string;
+   description: string;
+   posts: IPost[];
+}

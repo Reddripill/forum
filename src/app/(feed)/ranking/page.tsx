@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const RankingPage = () => {
-   return <div>Ranking Page</div>;
+   return <div>Ranking Pages</div>;
 };
 
 export default RankingPage;

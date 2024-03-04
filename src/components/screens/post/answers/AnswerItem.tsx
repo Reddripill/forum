@@ -1,8 +1,7 @@
 "use client";
+import React, { useState } from "react";
 import PostHeader from "@/components/UI/postHeader/PostHeader";
-import { IAttribute } from "@/types/main.types";
 import { IAnswer } from "@/types/post.types";
-import React from "react";
 import PostContent from "../postContent/PostContent";
 import styles from "./Answers.module.scss";
 import cn from "classnames";
@@ -12,81 +11,128 @@ import {
    ThumbsDown,
    ThumbsUp,
 } from "lucide-react";
+import PostsService from "@/services/posts.service";
 
-const AnswerItem = ({ answer }: { answer: IAttribute<IAnswer> }) => {
+const AnswerItem = ({ answer }: { answer: IAnswer }) => {
+   const [isOpen, setIsOpen] = useState(!answer.parent ? true : false);
+   const getReplies = async () => {
+      const repliesRes = await PostsService.getRepliesByAnswerId(answer.id);
+      return repliesRes;
+   };
+   if (!answer.author) return null;
    return (
-      <div
-         className={cn(styles.wrapper, {
-            [styles.reply]: answer.attributes.parent?.data,
-         })}
-      >
-         <div className={styles.container}>
-            <div className={styles.decoration}></div>
-            <div className={styles.main}>
-               {!answer.attributes.parent.data && (
-                  <PostHeader author={answer.attributes.author.data} />
-               )}
-               <div className={styles["content-block"]}>
-                  <PostContent
-                     content={answer.attributes.content}
-                     user={
-                        answer.attributes.parent.data
-                           ? answer.attributes.parent.data.attributes.author
-                                .data.attributes.username
-                           : answer.attributes.post.data.attributes.author.data
-                                .attributes.username
-                     }
-                  />
-               </div>
-               {!answer.attributes.parent?.data ? (
-                  <div className="flex items-center justify-between">
-                     <div className="flex items-center gap-5">
-                        <button className="flex items-center gap-[5px]">
-                           <ThumbsUp size={14} className="text-gray" />
-                           <div className="text-xs text-gray font-light tracking-[0.24px]">
-                              0
-                           </div>
-                        </button>
-                        <button className="flex items-center gap-[5px]">
-                           <ThumbsDown size={14} className="text-gray" />
-                           <div className="text-xs text-gray font-light tracking-[0.24px]">
-                              0
-                           </div>
-                        </button>
-                     </div>
-                     <div className="flex items-center gap-5">
-                        {answer.attributes.replies.data.length > 0 && (
+      <div className="mb-5">
+         <div
+            className={cn(styles.wrapper, {
+               [styles.reply]: answer.parent,
+            })}
+         >
+            <div className={styles.container}>
+               <div className={styles.decoration}></div>
+               <div className={styles.main}>
+                  {!answer.parent && <PostHeader author={answer.author} />}
+                  <div className={styles["content-block"]}>
+                     <PostContent
+                        content={answer.content}
+                        user={
+                           answer.parent
+                              ? answer.parent.author.username
+                              : answer.post.author.username
+                        }
+                     />
+                  </div>
+                  {!answer.parent ? (
+                     <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-5">
                            <button className="flex items-center gap-[5px]">
-                              <ChevronsUp size={14} className="text-blue" />
-                              <div className="text-xs text-blue font-light tracking-[0.24px]">
-                                 Hide All Replies (
-                                 {answer.attributes.replies.data.length})
+                              <ThumbsUp size={14} className="text-gray" />
+                              <div className="text-xs text-gray font-light tracking-[0.24px]">
+                                 0
                               </div>
                            </button>
-                        )}
-                        <button className="flex items-center gap-[5px]">
-                           <CornerDownRight size={14} className="text-blue" />
-                           <div className="text-xs text-blue font-light tracking-[0.24px]">
-                              Reply
-                           </div>
-                        </button>
-                     </div>
-                  </div>
-               ) : (
-                  <div className="flex items-center justify-between">
-                     <div className="text-xs text-gray font-medium tracking-[0.65px]">
-                        by @{answer.attributes.author.data.attributes.username}
-                     </div>
-                     <button className="flex items-center gap-[5px]">
-                        <CornerDownRight size={14} className="text-blue" />
-                        <div className="text-xs text-blue font-light tracking-[0.24px]">
-                           Reply
+                           <button className="flex items-center gap-[5px]">
+                              <ThumbsDown size={14} className="text-gray" />
+                              <div className="text-xs text-gray font-light tracking-[0.24px]">
+                                 0
+                              </div>
+                           </button>
                         </div>
-                     </button>
-                  </div>
-               )}
+                        <div className="flex items-center gap-5">
+                           {answer.replies.length > 0 && (
+                              <button
+                                 className="flex items-center gap-[5px]"
+                                 onClick={() => setIsOpen(!isOpen)}
+                              >
+                                 <ChevronsUp
+                                    size={14}
+                                    className={cn(styles["open-icon"], {
+                                       [styles._hide]: !isOpen,
+                                    })}
+                                 />
+                                 <div className="text-xs text-blue font-light tracking-[0.24px]">
+                                    {isOpen ? "Hide" : "Show"} All Replies (
+                                    {answer.replies.length})
+                                 </div>
+                              </button>
+                           )}
+                           <button className="flex items-center gap-[5px]">
+                              <CornerDownRight
+                                 size={14}
+                                 className="text-blue"
+                              />
+                              <div className="text-xs text-blue font-light tracking-[0.24px]">
+                                 Reply
+                              </div>
+                           </button>
+                        </div>
+                     </div>
+                  ) : (
+                     <div className="flex items-center justify-between">
+                        <div className="text-xs text-gray font-medium tracking-[0.65px]">
+                           by @{answer.author.username}
+                        </div>
+                        <div className="flex items-center gap-5">
+                           {answer.replies.length > 0 && (
+                              <button
+                                 className="flex items-center gap-[5px]"
+                                 onClick={() => {
+                                    setIsOpen(!isOpen);
+                                    getReplies();
+                                 }}
+                              >
+                                 <ChevronsUp
+                                    size={14}
+                                    className={cn(styles["open-icon"], {
+                                       [styles._hide]: !isOpen,
+                                    })}
+                                 />
+                                 <div className="text-xs text-blue font-light tracking-[0.24px]">
+                                    Hide All Replies ({answer.replies.length})
+                                 </div>
+                              </button>
+                           )}
+                           <button className="flex items-center gap-[5px]">
+                              <CornerDownRight
+                                 size={14}
+                                 className="text-blue"
+                              />
+                              <div className="text-xs text-blue font-light tracking-[0.24px]">
+                                 Reply
+                              </div>
+                           </button>
+                        </div>
+                     </div>
+                  )}
+               </div>
             </div>
          </div>
+         {answer.replies && isOpen && (
+            <div>
+               {answer.replies.map((reply) => (
+                  <AnswerItem key={reply.id} answer={reply} />
+               ))}
+            </div>
+         )}
       </div>
    );
 };

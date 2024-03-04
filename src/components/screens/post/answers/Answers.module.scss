@@ -26,3 +26,9 @@
 .main {
    @apply w-full py-5 px-10;
 }
+.open-icon {
+   @apply text-blue;
+}
+.open-icon._hide {
+   @apply rotate-180;
+}

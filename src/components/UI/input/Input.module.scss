@@ -9,11 +9,14 @@
 }
 .input-field {
    @apply appearance-none w-full h-[34px] rounded-[5px] border-2 border-label px-[10px]
-   transition-colors duration-300;
+   transition-colors duration-300 text-black;
 }
 .input-field,
 .input-field::placeholder {
-   @apply text-sm font-light text-gray;
+   @apply text-sm;
+}
+.input-field::placeholder {
+   @apply text-gray font-light;
 }
 
 .error {
