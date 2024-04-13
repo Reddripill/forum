@@ -1,9 +1,14 @@
+"use client";
 import React from "react";
 import PostsService from "@/services/posts.service";
 import AnswerItem from "./AnswerItem";
+import { useQuery } from "@tanstack/react-query";
 
-const Answers = async ({ postId }: { postId: number | string }) => {
-   const answers = await PostsService.getAnswersByPostId(postId);
+const Answers = ({ postId }: { postId: number | string }) => {
+   const { data: answers } = useQuery({
+      queryKey: ["Answers", postId.toString()],
+      queryFn: () => PostsService.getAnswersByPostId(postId),
+   });
    const rootAnswers = answers?.filter((answer) => !answer.parent);
    return (
       <div className="mb-10">

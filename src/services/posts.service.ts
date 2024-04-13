@@ -1,14 +1,16 @@
 import { IAnswer, ICreationPostParams, IPost } from "@/types/post.types";
 import { axiosInstance } from "../../axios.config";
 import { IResponse } from "@/types/main.types";
+import { SortingTabNameType } from "@/components/screens/postsFeed/sortingTabs/sortingTabs.data";
 
 class Posts {
-   async getPosts() {
+   async getPosts(sortingType?: SortingTabNameType) {
+      const sortValue: keyof IPost =
+         sortingType === "Top" ? "votes" : "createdAt";
       const res = await axiosInstance.get<IResponse<IPost[]>>(
-         `/posts?populate=*`
+         `/posts?sort=${sortValue}&populate=*`
       );
       const posts = await res.data;
-      console.log("service post: ", posts);
       return posts.data;
    }
    async createPost({ author, content, title, tags }: ICreationPostParams) {
@@ -26,6 +28,17 @@ class Posts {
          },
       };
       const res = await axiosInstance.post(`/posts`, body);
+   }
+   async changeVote(post: IPost, userId?: string) {
+      if (userId) {
+         const foundVote = post.votes.find((vote) => vote.id === userId);
+         const votesRelationObj = foundVote
+            ? { disconnect: [userId] }
+            : { connect: [userId] };
+         await axiosInstance.put(`/posts/${post.id}`, {
+            data: { votes: votesRelationObj },
+         });
+      }
    }
    async getPostById(id: string) {
       const res = await axiosInstance.get<IPost>(`/posts/${id}?populate=*`);

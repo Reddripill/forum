@@ -1,11 +1,17 @@
+"use client";
 import React from "react";
 import UserCard from "@/components/screens/post/UserCard";
 import Answers from "@/components/screens/post/answers/Answers";
 import Question from "@/components/screens/postsFeed/Question";
 import PostsService from "@/services/posts.service";
+import { useQuery } from "@tanstack/react-query";
 
-const PostPage = async ({ params }: { params: { id: string } }) => {
-   const post = await PostsService.getPostById(params.id);
+const PostPage = ({ params }: { params: { id: string } }) => {
+   const { data: post } = useQuery({
+      queryKey: ["Posts", params.id],
+      queryFn: () => PostsService.getPostById(params.id),
+   });
+   if (!post) return null;
    return (
       <>
          <div className="pt-12 pl-[50px]">
@@ -17,7 +23,7 @@ const PostPage = async ({ params }: { params: { id: string } }) => {
             )}
          </div>
          <div className="pt-12 px-[35px]">
-            <UserCard user={post.author} />
+            <UserCard post={post} />
          </div>
       </>
    );

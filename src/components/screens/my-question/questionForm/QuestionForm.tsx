@@ -20,11 +20,6 @@ import {
    SelectValuesType,
 } from "@/components/UI/select/select.types";
 
-interface Test {
-   test?: React.ElementType;
-   // test2?: React.ComponentPropsWithRef;
-}
-
 const QuestionForm = () => {
    const [tags, setTags] = useState<SelectValuesType>(null);
    const { user } = useAuth();

@@ -2,7 +2,7 @@
    @apply flex flex-col gap-y-5;
 }
 .text {
-   @apply text-sm text-black leading-[25px];
+   @apply inline text-sm text-black leading-[25px];
 }
 .wrapper span {
    @apply text-sm text-black font-medium leading-[25px] tracking-[0.7px];

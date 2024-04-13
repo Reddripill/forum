@@ -19,6 +19,9 @@ export interface IPost {
    views: number;
    author: IAuthor;
    answers?: IAnswer[];
+   createdAt: string;
+   votes: IAuthor[];
+   isClosed: boolean;
 }
 export interface ICreationPostParams {
    title: string;

@@ -7,9 +7,9 @@ import {
 } from "lucide-react";
 import React from "react";
 import Link from "next/link";
-import { IAuthor } from "@/types/user.types";
+import { IPost } from "@/types/post.types";
 
-const UserCard = ({ user }: { user: IAuthor }) => {
+const UserCard = ({ post }: { post: IPost }) => {
    return (
       <div
          className="px-5 py-[30px] bg-white shadow-card rounded-[5px] 
@@ -17,17 +17,17 @@ const UserCard = ({ user }: { user: IAuthor }) => {
       >
          <div className="h-[150px] w-[150px] rounded-full bg-gray"></div>
          <div className="text-black text-lg font-bold tracking-[0.9px] pb-5 last:pb-0 border-b border-label w-full">
-            @{user.username}
+            @{post.author.username}
          </div>
          <div className="flex items-center pb-5 last:pb-0 border-b border-label w-full justify-center">
             <Award size={24} className="text-orange mr-2" />
             <div className="text-[22px] text-orange tracking-[0.44px]">
-               {user.reputation} [0]
+               {post.votes.length}
             </div>
          </div>
-         {user.links.length > 0 && (
+         {post.author.links.length > 0 && (
             <div className="flex items-center gap-5">
-               {user.links.map((item) => {
+               {post.author.links.map((item) => {
                   let Icon = LucideLink;
                   if (item.social === "github") {
                      Icon = Github;

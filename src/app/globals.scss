@@ -19,3 +19,18 @@ textarea:focus {
 .ProseMirror:focus {
    outline: none;
 }
+
+.bold {
+   @apply font-bold;
+}
+
+.strikethrough {
+   @apply line-through;
+}
+
+.code {
+   @apply rounded px-1 bg-label;
+}
+h1 {
+   @apply text-[2em] #{!important};
+}

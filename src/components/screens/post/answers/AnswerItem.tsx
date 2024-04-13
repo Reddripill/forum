@@ -12,13 +12,26 @@ import {
    ThumbsUp,
 } from "lucide-react";
 import PostsService from "@/services/posts.service";
+import Tiptap from "@/components/UI/tiptap/Tiptap";
+import MainButton from "@/components/UI/button/mainButton/MainButton";
 
 const AnswerItem = ({ answer }: { answer: IAnswer }) => {
    const [isOpen, setIsOpen] = useState(!answer.parent ? true : false);
+   const [isReplyFieldOpen, setIsReplyFieldOpen] = useState(false);
+   const [richText, setRichText] = useState("");
+   const [replies, setReplies] = useState<IAnswer[] | null>(
+      !answer.parent && answer.replies ? answer.replies : null
+   );
    const getReplies = async () => {
-      const repliesRes = await PostsService.getRepliesByAnswerId(answer.id);
-      return repliesRes;
+      if (!replies) {
+         const repliesRes = await PostsService.getRepliesByAnswerId(answer.id);
+         setReplies(repliesRes);
+         setIsOpen(true);
+      } else {
+         setIsOpen(!isOpen);
+      }
    };
+   console.log("richtext: ", richText);
    if (!answer.author) return null;
    return (
       <div className="mb-5">
@@ -30,7 +43,12 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
             <div className={styles.container}>
                <div className={styles.decoration}></div>
                <div className={styles.main}>
-                  {!answer.parent && <PostHeader author={answer.author} />}
+                  {!answer.parent && (
+                     <PostHeader
+                        author={answer.author}
+                        date={answer.author.createdAt}
+                     />
+                  )}
                   <div className={styles["content-block"]}>
                      <PostContent
                         content={answer.content}
@@ -75,7 +93,12 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
                                  </div>
                               </button>
                            )}
-                           <button className="flex items-center gap-[5px]">
+                           <button
+                              className="flex items-center gap-[5px]"
+                              onClick={() =>
+                                 setIsReplyFieldOpen(!isReplyFieldOpen)
+                              }
+                           >
                               <CornerDownRight
                                  size={14}
                                  className="text-blue"
@@ -95,10 +118,7 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
                            {answer.replies.length > 0 && (
                               <button
                                  className="flex items-center gap-[5px]"
-                                 onClick={() => {
-                                    setIsOpen(!isOpen);
-                                    getReplies();
-                                 }}
+                                 onClick={getReplies}
                               >
                                  <ChevronsUp
                                     size={14}
@@ -107,11 +127,19 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
                                     })}
                                  />
                                  <div className="text-xs text-blue font-light tracking-[0.24px]">
-                                    Hide All Replies ({answer.replies.length})
+                                    <div className="text-xs text-blue font-light tracking-[0.24px]">
+                                       {isOpen ? "Hide" : "Show"} All Replies (
+                                       {answer.replies.length})
+                                    </div>
                                  </div>
                               </button>
                            )}
-                           <button className="flex items-center gap-[5px]">
+                           <button
+                              className="flex items-center gap-[5px]"
+                              onClick={() =>
+                                 setIsReplyFieldOpen(!isReplyFieldOpen)
+                              }
+                           >
                               <CornerDownRight
                                  size={14}
                                  className="text-blue"
@@ -126,9 +154,19 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
                </div>
             </div>
          </div>
-         {answer.replies && isOpen && (
+         {isReplyFieldOpen && (
+            <div className="mb-5 flex flex-col items-end">
+               <Tiptap
+                  text={richText}
+                  onChange={setRichText}
+                  classname="mb-5 bg-white w-full"
+               />
+               <MainButton color="orange">Post your answer</MainButton>
+            </div>
+         )}
+         {replies && isOpen && (
             <div>
-               {answer.replies.map((reply) => (
+               {replies.map((reply) => (
                   <AnswerItem key={reply.id} answer={reply} />
                ))}
             </div>

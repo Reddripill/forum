@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { IPost } from "@/types/post.types";
@@ -5,6 +6,10 @@ import { ArrowUp, Eye, MessageSquare } from "lucide-react";
 import PostHeader from "@/components/UI/postHeader/PostHeader";
 import PostContent from "../post/postContent/PostContent";
 import MainButton from "@/components/UI/button/mainButton/MainButton";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import PostsService from "@/services/posts.service";
+import useAuth from "@/hooks/useAuth";
+import cn from "classnames";
 
 interface IProps {
    post: IPost;
@@ -13,6 +18,19 @@ interface IProps {
 }
 
 const Question = ({ post, classname, preview }: IProps) => {
+   const queryClient = useQueryClient();
+   const { user, isLoggedIn } = useAuth();
+   const { mutate } = useMutation({
+      mutationFn: () => PostsService.changeVote(post, user?.id),
+      onSuccess: () => {
+         queryClient.invalidateQueries({
+            queryKey: ["Posts"],
+         });
+         queryClient.invalidateQueries({
+            queryKey: ["Posts", post.id.toString()],
+         });
+      },
+   });
    const firstParagraph = post.content.find(
       (text) => text.type === "paragraph"
    );
@@ -21,7 +39,7 @@ const Question = ({ post, classname, preview }: IProps) => {
          className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]
          w-full ${classname}`}
       >
-         <PostHeader author={post.author} />
+         <PostHeader author={post.author} date={post.createdAt} />
          {preview ? (
             <Link
                href={`questions/${post.id}`}
@@ -67,23 +85,39 @@ const Question = ({ post, classname, preview }: IProps) => {
                   <div className="flex items-center mr-[15px]">
                      <MessageSquare size={15} className="text-gray mr-1" />
                      <div className="text-gray text-xs tracking-[0.4px]">
-                        125
+                        {post.answers?.length ?? 0}
                      </div>
                   </div>
                   <div className="flex items-center">
                      <ArrowUp size={15} className="text-gray mr-1" />
                      <div className="text-gray text-xs tracking-[0.4px]">
-                        155
+                        {post.votes.length}
                      </div>
                   </div>
                </div>
             ) : (
-               <div>
-                  <MainButton color="blue" className="gap-2">
-                     <ArrowUp size={14} strokeWidth={3} />
-                     <div>Vote</div>
-                  </MainButton>
-               </div>
+               <>
+                  {isLoggedIn && user && (
+                     <div onClick={() => mutate()}>
+                        <MainButton color="blue" className="gap-2">
+                           <ArrowUp
+                              size={14}
+                              strokeWidth={3}
+                              className={cn({
+                                 "rotate-180": post.votes.find(
+                                    (vote) => vote.id === user.id
+                                 ),
+                              })}
+                           />
+                           <div>
+                              {post.votes.find((vote) => vote.id === user.id)
+                                 ? "Unvote"
+                                 : "Vote"}
+                           </div>
+                        </MainButton>
+                     </div>
+                  )}
+               </>
             )}
          </div>
       </div>

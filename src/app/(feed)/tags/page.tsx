@@ -41,13 +41,13 @@ const TagsPage = async () => {
                         className="rounded-[5px] bg-label text-gray text-xs tracking-[0.5px] 
                      px-[10px] py-[5px] mb-[10px] inline-block transition-colors hover:bg-label/80 duration-300"
                      >
-                        {tag.attributes.name}
+                        {tag.name}
                      </Link>
                      <p className="w-full mb-[10px] line-clamp-4 overflow-hidden text-ellipsis text-sm tracking-[0.65px] text-black leading-normal font-light">
-                        {tag.attributes.description}
+                        {tag.description}
                      </p>
                      <div className="text-sm tracking-[0.65px] text-gray">
-                        {tag.attributes.posts.data.length} Questions
+                        {tag.posts.length} Questions
                      </div>
                   </div>
                ))}

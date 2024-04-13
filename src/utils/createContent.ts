@@ -1,4 +1,4 @@
-import { IContent } from "@/types/main.types";
+import { IContent } from "@/types/editor.types";
 
 export const createContent = (content: IContent[]) => {
    const parsedContent: IContent[] = [];
