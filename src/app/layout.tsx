@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import "./globals.scss";
+import "../styles/globals.scss";
 import Header from "@/components/layout/header/Header";
 import { NextAuthProvider } from "@/providers/NextAuthProvider";
 import QueryProvider from "@/providers/QueryProvider";

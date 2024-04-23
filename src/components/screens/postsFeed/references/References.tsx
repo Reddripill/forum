@@ -5,7 +5,7 @@ import Link from "next/link";
 const References = () => {
    if (referencePosts.length === 0) return null;
    return (
-      <div className="pt-10 px-[35px]">
+      <div className="xl:pt-10 xl:px-[35px] min-w-[200px]">
          <div className="px-5 py-[30px] bg-white shadow-card rounded-[5px]">
             {referencePosts.map((group) => (
                <div key={group.title.name} className="mb-10 last:mb-0">

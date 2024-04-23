@@ -4,7 +4,7 @@
 
 html,
 body {
-   @apply h-full w-full;
+   @apply h-full w-full overflow-x-hidden;
 }
 
 input,
@@ -34,3 +34,10 @@ textarea:focus {
 h1 {
    @apply text-[2em] #{!important};
 }
+
+.main-block {
+   @apply pt-[22px] xl:pl-[50px];
+}
+/* .main-icon {
+   @apply xl:w-[18px] xl:h-[18px] w-4 h-4;
+} */

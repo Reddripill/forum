@@ -6,8 +6,8 @@ const SearchFIeld = ({ className }: { className?: string }) => {
    const [input, setInput] = useState("");
    return (
       <div className={`w-full mb-7 ${className}`}>
-         <div className="pl-sidebar w-full flex items-center">
-            <Search className="text-gray mr-3" size={18} />
+         <div className="xl:pl-sidebar pl-7 w-full flex items-center">
+            <Search className="text-gray mr-3 xl:w-[18px] xl:h-[18px] w-4 h-4" />
             <input
                className="w-full h-10 text-black font-medium text-sm 
             placeholder:text-black placeholder:font-medium placeholder:text-sm"

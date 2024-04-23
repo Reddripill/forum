@@ -16,10 +16,10 @@ const Sidebar = () => {
       if (pathname === "/" && link === "/questions") return true;
       return pathname.includes(link);
    };
-   // w-[20%]
+
    return (
-      <div className="h-full">
-         <div className="flex flex-col h-[calc(100%-80px)] py-10 fixed top-20 left-0 w-[310px]">
+      <div className="h-full w-full max-md:hidden">
+         <div className={styles.sidebar}>
             <div className="grow">
                <SearchFIeld />
                {searchFields.general.data.length !== 0 && (
@@ -36,7 +36,7 @@ const Sidebar = () => {
                            key={gen.name}
                         >
                            <div className={styles["link-wrapper"]}>
-                              <gen.icon size={18} className={styles.icon} />
+                              <gen.icon className={styles.icon} />
                               <div className={styles.name}>{gen.name}</div>
                            </div>
                            <div className={styles.select}></div>
@@ -58,10 +58,7 @@ const Sidebar = () => {
                            key={personal.name}
                         >
                            <div className={styles["link-wrapper"]}>
-                              <personal.icon
-                                 size={18}
-                                 className={styles.icon}
-                              />
+                              <personal.icon className={styles.icon} />
                               <div className={styles.name}>{personal.name}</div>
                            </div>
                            <div className={styles.select}></div>
@@ -70,22 +67,23 @@ const Sidebar = () => {
                   </div>
                )}
             </div>
+
             {!isLoggedIn && (
                <div className="flex justify-center">
                   <Link href="https://github.com/" className={styles.society}>
-                     <Github size={24} />
+                     <Github className={styles["society-icon"]} />
                   </Link>
                   <Link
                      href="https://www.instagram.com/"
                      className={styles.society}
                   >
-                     <Instagram size={24} />
+                     <Instagram className={styles["society-icon"]} />
                   </Link>
                   <Link
                      href="https://www.facebook.com/"
                      className={styles.society}
                   >
-                     <Facebook size={24} />
+                     <Facebook className={styles["society-icon"]} />
                   </Link>
                </div>
             )}

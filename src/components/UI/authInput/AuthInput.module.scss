@@ -2,10 +2,14 @@
    @apply relative border border-border rounded-main px-4 h-[42px]
    transition-all duration-300 ease-in-out;
 }
-.input._active {
+.input._focused {
    @apply border-blue shadow-focused;
 }
-.input._active .label {
+.input._filled {
+   @apply border-blue;
+}
+.input._focused .label,
+.input._filled .label {
    @apply top-0 tracking-[0.16px] pointer-events-auto text-xs bg-white px-1
    left-3 text-blue;
 }

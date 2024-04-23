@@ -36,7 +36,7 @@ const Question = ({ post, classname, preview }: IProps) => {
    );
    return (
       <div
-         className={`py-[25px] px-[30px] bg-white shadow-post rounded-[5px]
+         className={`lg:py-[25px] lg:px-[30px] p-4 bg-white shadow-post rounded-[5px]
          w-full ${classname}`}
       >
          <PostHeader author={post.author} date={post.createdAt} />

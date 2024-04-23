@@ -1,3 +1,4 @@
+import styles from "../../styles/feedLayout.module.scss";
 import Sidebar from "@/components/layout/sidebar/Sidebar";
 
 export default function FeedLayout({
@@ -6,25 +7,9 @@ export default function FeedLayout({
    children: React.ReactNode;
 }) {
    return (
-      <div
-         style={{
-            display: "grid",
-            gridTemplateColumns: "310px 4fr",
-            height: "100%",
-         }}
-      >
+      <div className={styles.wrapper}>
          <Sidebar />
-         <div className="w-full h-full bg-light">
-            <div
-               style={{
-                  display: "grid",
-                  gridTemplateColumns: "minmax(0,2.5fr) 340px",
-                  height: "100%",
-               }}
-            >
-               {children}
-            </div>
-         </div>
+         <div className={styles["main-wrapper"]}>{children}</div>
       </div>
    );
 }

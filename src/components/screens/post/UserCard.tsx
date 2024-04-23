@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Link from "next/link";
 import { IPost } from "@/types/post.types";
+import Jdenticon from "@/components/UI/Jdenticon";
 
 const UserCard = ({ post }: { post: IPost }) => {
    return (
@@ -15,7 +16,7 @@ const UserCard = ({ post }: { post: IPost }) => {
          className="px-5 py-[30px] bg-white shadow-card rounded-[5px] 
             flex flex-col items-center gap-y-5 text-center"
       >
-         <div className="h-[150px] w-[150px] rounded-full bg-gray"></div>
+         <Jdenticon value={post.author.username} size={150} />
          <div className="text-black text-lg font-bold tracking-[0.9px] pb-5 last:pb-0 border-b border-label w-full">
             @{post.author.username}
          </div>

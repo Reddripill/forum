@@ -15,7 +15,7 @@ const QuestionsPageContent = () => {
    });
    return (
       <>
-         <div className="pt-[22px] pl-[50px]">
+         <div className="main-block min-w-0">
             <SortingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
             {isFetching
                ? "Loading..."
@@ -27,7 +27,7 @@ const QuestionsPageContent = () => {
                              key={post.id}
                              post={post}
                              preview={true}
-                             classname="mb-6"
+                             classname="mb-6 last:mb-0"
                           />
                        ))}
                     </div>

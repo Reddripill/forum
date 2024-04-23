@@ -1,9 +1,32 @@
+.sidebar {
+   position: fixed;
+   left: 0;
+   top: 80px;
+   height: calc(100% - 80px);
+   width: 310px;
+   padding: 40px 0;
+   display: flex;
+   flex-direction: column;
+   overflow-y: auto;
+}
+/* flex flex-col h-[calc(100%-80px)] py-10 fixed top-20 left-0 w-[310px] */
+@media (max-width: 1280px) {
+   .sidebar {
+      min-width: 200px;
+      width: 20%;
+   }
+}
+@media (max-width: 1024px) {
+   .sidebar {
+      padding: 20px 0px;
+   }
+}
 .category {
    @apply mb-[30px];
 }
 .title {
-   @apply pl-sidebar uppercase text-xs text-gray font-medium tracking-[0.24px]
-   mb-3;
+   @apply xl:pl-sidebar pl-7 uppercase xl:text-xs text-[10px] text-gray font-medium
+   tracking-[0.24px] mb-3;
 }
 .link {
    @apply inline-block h-10 w-full relative;
@@ -21,17 +44,20 @@
    @apply block;
 }
 .link-wrapper {
-   @apply pl-sidebar flex items-center h-full;
+   @apply xl:pl-sidebar pl-7 flex items-center h-full;
 }
 .icon {
-   @apply mr-3;
+   @apply xl:w-6 xl:h-6 w-4 h-4 xl:mr-3 mr-2;
 }
 .name {
-   @apply tracking-[0.65px] font-medium text-black text-sm grow;
+   @apply tracking-[0.65px] font-medium text-black xl:text-sm text-xs grow;
 }
 .select {
    @apply absolute top-0 left-0 h-full w-[5px] bg-orange hidden;
 }
 .society {
-   @apply mr-5 last:mr-0 text-gray hover:text-orange transition-colors duration-300;
+   @apply xl:mr-5 mr-4 last:mr-0 text-gray hover:text-orange transition-colors duration-300;
+}
+.society-icon {
+   @apply xl:w-6 xl:h-6 w-5 h-5;
 }

@@ -27,7 +27,8 @@ const AuthInput = ({ name, className, type, validate, autoFocus }: IProps) => {
    return (
       <div
          className={cn(styles.input, className, {
-            [styles._active]: isFocused || validate.value,
+            [styles._focused]: isFocused,
+            [styles._filled]: validate.value,
          })}
       >
          <span className={styles.label}>{name}</span>

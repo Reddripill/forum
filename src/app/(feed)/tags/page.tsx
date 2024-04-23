@@ -12,7 +12,7 @@ const TagsPage = async () => {
    const tags = await TagsService.getTags();
    return (
       <>
-         <div className="pt-[22px] pl-[50px] pr-5">
+         <div className="main-block">
             <div>
                <div className="text-xl tracking-[0.7px] text-black font-bold mb-[10px]">
                   Tags
