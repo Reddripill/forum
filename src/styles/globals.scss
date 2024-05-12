@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {
+   @apply w-full h-full;
+}
 body {
    @apply h-full w-full overflow-x-hidden;
 }

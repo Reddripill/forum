@@ -1,68 +1,65 @@
-import { useSelectContext } from "@/providers/SelectProvider";
 import React from "react";
 import styles from "./Select.module.scss";
 import cn from "classnames";
-import { IControlledValue, SelectValuesType } from "./select.types";
+import { ISelectValue, SelectValuesType } from "./select.types";
+import { SetStateType } from "@/types/main.types";
 
 interface IProps {
-   children: React.ReactNode;
-   value: IControlledValue;
+   option: ISelectValue;
    closeOptions?: () => void;
    isMultiple?: boolean;
-   maxOptions?: number;
+   maxOptions: number;
    clearSearchText?: () => void;
+   selectedValue: SelectValuesType;
+   setSelectedValue: SetStateType<SelectValuesType>;
+   highlited: number;
+   setHighlited: SetStateType<number>;
 }
 
 const SelectOption = ({
-   children,
-   value,
+   option,
    closeOptions,
    isMultiple,
    maxOptions,
    clearSearchText,
+   selectedValue,
+   setSelectedValue,
+   highlited,
+   setHighlited,
 }: IProps) => {
-   const { setValue, value: currentValue } = useSelectContext();
    const handleSelect = () => {
       if (clearSearchText) {
          clearSearchText();
       }
       if (isMultiple) {
-         setValue((prev) => {
-            if (prev === null) {
-               return [value];
+         setSelectedValue((prev) => {
+            if ((prev as ISelectValue[]).includes(option)) {
+               const filteredValue = (prev as ISelectValue[]).filter(
+                  (item) => item.id !== option.id
+               );
+               return filteredValue;
             } else {
-               if ((prev as IControlledValue[]).includes(value)) {
-                  const filteredValue = (prev as IControlledValue[]).filter(
-                     (item) => item.id !== value.id
-                  );
-                  if (filteredValue.length === 0) {
-                     return null;
-                  }
-                  return filteredValue;
-               } else {
-                  if (
-                     maxOptions &&
-                     (prev as IControlledValue[]).length == maxOptions
-                  ) {
-                     return prev;
-                  }
-                  return (prev as IControlledValue[]).concat(value);
+               if ((prev as ISelectValue[]).length === maxOptions) {
+                  return prev;
                }
+               return (prev as ISelectValue[]).concat(option);
             }
          });
       } else {
-         setValue(currentValue === value ? null : value);
+         setSelectedValue(selectedValue === option ? null : option);
          if (closeOptions) {
             closeOptions();
          }
       }
    };
    const checkIsSelected = () => {
-      if (currentValue !== null) {
-         if (isMultiple) {
-            return (currentValue as IControlledValue[]).includes(value);
-         } else {
-            return currentValue === value;
+      if (isMultiple) {
+         if ((selectedValue as ISelectValue[]).length > 0) {
+            return (selectedValue as ISelectValue[]).includes(option);
+         }
+      } else {
+         if (selectedValue !== null) {
+            return selectedValue === option;
          }
       }
    };
@@ -71,7 +68,7 @@ const SelectOption = ({
          onClick={handleSelect}
          className={cn(styles.item, { [styles._selected]: checkIsSelected() })}
       >
-         {children}
+         {option.label}
       </div>
    );
 };

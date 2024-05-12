@@ -1,13 +1,11 @@
 .wrapper {
    display: grid;
    grid-template-columns: 310px 1fr;
+   min-height: 100%;
 }
 .main-wrapper {
-   display: grid;
    grid-template-columns: minmax(500px, 1fr) 340px;
-   width: 100%;
-   background-color: #fafafa;
-   padding-bottom: 30px;
+   @apply bg-light pb-[30px] w-full grid;
 }
 
 @media (max-width: 1280px) {
@@ -28,7 +26,7 @@
       padding-right: 30px;
    }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
    .wrapper {
       display: block;
    }

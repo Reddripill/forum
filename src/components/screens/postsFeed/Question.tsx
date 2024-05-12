@@ -79,7 +79,7 @@ const Question = ({ post, classname, preview }: IProps) => {
                   <div className="flex items-center mr-[15px]">
                      <Eye size={15} className="text-gray mr-1" />
                      <div className="text-gray text-xs tracking-[0.4px]">
-                        {post.views}
+                        {!post.views ? 0 : post.views.length}
                      </div>
                   </div>
                   <div className="flex items-center mr-[15px]">

@@ -1,3 +1,4 @@
+import styles from "@/styles/authLayout.module.scss";
 export default function AuthLayout({
    children,
 }: {
@@ -5,9 +6,7 @@ export default function AuthLayout({
 }) {
    return (
       <>
-         <div className="w-full h-full grid grid-cols-[1fr_1.35fr]">
-            {children}
-         </div>
+         <div className={styles.layout}>{children}</div>
       </>
    );
 }

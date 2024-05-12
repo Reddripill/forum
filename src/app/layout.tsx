@@ -30,7 +30,7 @@ export default function RootLayout({
             <QueryProvider>
                <NextAuthProvider>
                   <Header />
-                  <div className="pt-20 h-full w-full">{children}</div>
+                  <div className="pt-20 w-full h-full">{children}</div>
                </NextAuthProvider>
             </QueryProvider>
          </body>

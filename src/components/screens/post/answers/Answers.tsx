@@ -11,15 +11,10 @@ const Answers = ({ postId }: { postId: number | string }) => {
    });
    const rootAnswers = answers?.filter((answer) => !answer.parent);
    return (
-      <div className="mb-10">
-         <div className="text-black text-xl tracking-[0.9px] leading-[25px] font-medium mb-5">
-            Answers
-         </div>
-         <div>
-            {rootAnswers?.map((answer) => (
-               <AnswerItem key={answer.id} answer={answer} />
-            ))}
-         </div>
+      <div>
+         {rootAnswers?.map((answer) => (
+            <AnswerItem key={answer.id} answer={answer} />
+         ))}
       </div>
    );
 };

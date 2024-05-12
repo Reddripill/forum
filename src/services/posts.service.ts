@@ -55,6 +55,16 @@ class Posts {
       const post = await res.data;
       return post.replies;
    }
+   async countViews(post: IPost, userId?: string) {
+      if (userId) {
+         const oldViewsValue = !post.views ? [] : post.views;
+         const newViewsValue = oldViewsValue.concat(userId);
+         await axiosInstance.put(`/posts/${post.id}`, {
+            ...post,
+            views: newViewsValue,
+         });
+      }
+   }
 }
 
 const PostsService = new Posts();

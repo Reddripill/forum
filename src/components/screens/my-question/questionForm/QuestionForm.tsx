@@ -16,12 +16,12 @@ import Select from "@/components/UI/select/Select";
 import cn from "classnames";
 import TagsService from "@/services/tags.service";
 import {
-   IControlledValue,
+   ISelectValue,
    SelectValuesType,
 } from "@/components/UI/select/select.types";
 
 const QuestionForm = () => {
-   const [tags, setTags] = useState<SelectValuesType>(null);
+   const [tags, setTags] = useState<SelectValuesType>([]);
    const { user } = useAuth();
    const title = useValidate("", [
       {
@@ -51,8 +51,14 @@ const QuestionForm = () => {
                   styles.item
                )}
                inputHandler={TagsService.getTagsByInput}
-               value={tags}
-               setValue={setTags}
+               selectedValue={tags}
+               setSelectedValue={setTags}
+               options={[
+                  { id: 1, label: "First" },
+                  { id: 2, label: "Second" },
+                  { id: 3, label: "Third" },
+                  { id: 4, label: "Fourth" },
+               ]}
             ></Select>
             <Input
                className={styles.item}
@@ -81,7 +87,9 @@ const QuestionForm = () => {
                            text.value
                         ) as IContent[],
                         tags: tags
-                           ? (tags as IControlledValue[]).map((item) => item.id)
+                           ? (tags as ISelectValue[]).map((item) =>
+                                item.id.toString()
+                             )
                            : undefined,
                         // change
                      });

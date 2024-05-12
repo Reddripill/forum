@@ -1,0 +1,6 @@
+.layout {
+   @apply w-full h-full md:grid md:grid-cols-[1fr_1.35fr];
+}
+.form-block {
+   @apply h-full w-full flex items-center justify-center md:px-10 px-4;
+}

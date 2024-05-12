@@ -18,7 +18,7 @@ class Tags {
                (response) => {
                   const resp = JSON.parse(response) as ITag[];
                   return resp.map((item) => ({
-                     name: item.name,
+                     label: item.name,
                      id: item.id,
                   }));
                },

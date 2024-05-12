@@ -16,7 +16,7 @@ export interface IPost {
    title: string;
    content: IContent[];
    tags: ITag[];
-   views: number;
+   views: string[];
    author: IAuthor;
    answers?: IAnswer[];
    createdAt: string;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-export const useMediaQuery = (width: number = 768) => {
+export const useMediaQuery = (width: number = 767) => {
    const [isMatched, setIsMatched] = useState(false);
    const checkIsMatched = useCallback((e: MediaQueryListEvent) => {
       if (e.matches) {

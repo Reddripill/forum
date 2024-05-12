@@ -23,11 +23,13 @@
    shadow-select bg-white rounded-[5px] overflow-auto;
 }
 .item {
-   @apply cursor-pointer px-[10px] py-[6px] transition-colors duration-300
-   hover:bg-[#FCF4EC];
+   @apply cursor-pointer px-[10px] py-[6px] transition-colors duration-300;
 }
 .item._selected {
    @apply bg-orange text-white;
+}
+.item._highlited {
+   @apply bg-[#FCF4EC] text-black #{!important};
 }
 .chevron {
    @apply cursor-pointer;

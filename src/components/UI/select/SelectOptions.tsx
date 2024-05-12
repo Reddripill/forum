@@ -1,10 +1,12 @@
 // import { useSelectContext } from "@/providers/SelectProvider";
 import React from "react";
 import SelectOption from "./SelectOption";
-import { IControlledValue } from "./select.types";
+import { ISelectValue } from "./select.types";
+import { SetStateType } from "@/types/main.types";
 
 interface IProps {
-   options: IControlledValue[];
+   options: ISelectValue[];
+   setOptions: SetStateType<ISelectValue[]>;
    maxOptions: number;
    closeOptions: () => void;
    isMultiple?: boolean;
@@ -17,6 +19,7 @@ const SelectOptions = ({
    isMultiple,
    maxOptions,
    clearSearchText,
+   setOptions,
 }: IProps) => {
    return (
       <>
@@ -31,7 +34,7 @@ const SelectOptions = ({
                      closeOptions={closeOptions}
                      clearSearchText={clearSearchText}
                   >
-                     {option.name}
+                     {option.label}
                   </SelectOption>
                ))}
             </>

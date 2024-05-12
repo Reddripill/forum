@@ -2,6 +2,8 @@ import React from "react";
 import { Metadata } from "next";
 import LoginForm from "@/components/screens/auth/loginForm/LoginForm";
 import Image from "next/image";
+import styles from "@/styles/authLayout.module.scss";
+import DesktopComponent from "@/components/UI/DesktopComponent";
 
 export const metadata: Metadata = {
    title: "Login",
@@ -10,18 +12,20 @@ export const metadata: Metadata = {
 const LoginPage = () => {
    return (
       <>
-         <div className="px-[130px] py-[193px]">
+         <div className={styles["form-block"]}>
             <LoginForm />
          </div>
-         <div className="h-full relative">
-            <Image
-               src="/loginBg.jpg"
-               sizes="50vw"
-               fill
-               alt="Login Background"
-               style={{ objectFit: "cover" }}
-            />
-         </div>
+         <DesktopComponent>
+            <div className="h-full relative">
+               <Image
+                  src="/loginBg.jpg"
+                  sizes="50vw"
+                  fill
+                  alt="Login Background"
+                  style={{ objectFit: "cover" }}
+               />
+            </div>
+         </DesktopComponent>
       </>
    );
 };

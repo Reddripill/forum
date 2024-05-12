@@ -35,7 +35,10 @@ const LoginForm = () => {
       setIsLoading(false);
    };
    return (
-      <form onSubmit={(e) => submitHandler(e)} className="flex flex-col w-full">
+      <form
+         onSubmit={(e) => submitHandler(e)}
+         className="flex flex-col w-[300px]"
+      >
          <div className="tex-2xl text-black font-black tracking-[1.2px] mb-5">
             Join Alem community
          </div>
