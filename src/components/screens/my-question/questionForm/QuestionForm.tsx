@@ -53,12 +53,6 @@ const QuestionForm = () => {
                inputHandler={TagsService.getTagsByInput}
                selectedValue={tags}
                setSelectedValue={setTags}
-               options={[
-                  { id: 1, label: "First" },
-                  { id: 2, label: "Second" },
-                  { id: 3, label: "Third" },
-                  { id: 4, label: "Fourth" },
-               ]}
             ></Select>
             <Input
                className={styles.item}

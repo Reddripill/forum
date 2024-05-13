@@ -11,13 +11,15 @@ class Tags {
       return tags;
    }
    async getTagsByInput(input: string) {
+      const limitFilter = "pagination[limit]=6";
       const res = await axiosInstance.get<ITag>(
-         `/tags?filters[name][$contains]=${input}&populate=*`,
+         `/tags?filters[name][$contains]=${input}&${limitFilter}&populate=*`,
          {
             transformResponse: [
                (response) => {
-                  const resp = JSON.parse(response) as ITag[];
-                  return resp.map((item) => ({
+                  const resp = JSON.parse(response) as IResponse<ITag[]>;
+                  console.log("Response: ", resp);
+                  return resp.data.map((item) => ({
                      label: item.name,
                      id: item.id,
                   }));

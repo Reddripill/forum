@@ -6,7 +6,6 @@ import styles from "./Select.module.scss";
 import { useOutside } from "@/hooks/useOutside";
 import { useDebounce } from "@/hooks/useDebounce";
 import { ISelectProps, ISelectValue } from "./select.types";
-import SelectOption from "./SelectOption";
 
 const Select = ({
    maxOptions = 3,
@@ -19,11 +18,12 @@ const Select = ({
    setSelectedValue,
    options,
 }: ISelectProps) => {
+   const [isLoading, setIsLoading] = useState(false);
    const [text, setText] = useState(isSearchable ? "" : null);
    const [highlitedValue, setHighlitedValue] = useState(0);
    const [selectOptions, setSelectOptions] = useState(options ?? []);
    const [isShow, setIsShow] = useState(false);
-   const debouncedValue = useDebounce(text, 200);
+   const debouncedInputText = useDebounce(text, 200);
    const buttonRef = useRef<HTMLButtonElement>(null);
    const closeOptions = () => {
       setIsShow(false);
@@ -82,7 +82,6 @@ const Select = ({
             }
             break;
          case "Enter":
-         case "Space":
             if (isShow) {
                if (!isMultiple) setIsShow(false);
                handleSelect(selectOptions[highlitedValue]);
@@ -108,19 +107,21 @@ const Select = ({
          selectRef.current.focus();
       }
    }, [selectedValue, selectRef]); */
-   /* useEffect(() => {
+   useEffect(() => {
       let isIgnore = false;
-      if (debouncedValue && inputHandlerProp && setControlledOptions) {
-         inputHandlerProp(debouncedValue).then((data) => {
+      if (debouncedInputText !== null && inputHandlerProp) {
+         setIsLoading(true);
+         inputHandlerProp(debouncedInputText).then((data) => {
             if (!isIgnore) {
-               setControlledOptions(data);
+               setSelectOptions(data);
+               setIsLoading(false);
             }
          });
       }
       return () => {
          isIgnore = true;
       };
-   }, [debouncedValue, inputHandlerProp, setControlledOptions]); */
+   }, [debouncedInputText, inputHandlerProp]);
    return (
       <div
          className={cn(classnames, styles.wrapper, {
@@ -157,6 +158,8 @@ const Select = ({
                         </div>
                      ))}
                   </>
+               ) : isLoading ? (
+                  <div className="text-center py-4">Loading...</div>
                ) : (
                   <div className="text-center py-4">No Result</div>
                )}
