@@ -47,7 +47,7 @@ const QuestionForm = () => {
                isSearchable={true}
                isMultiple={true}
                classnames={cn(
-                  "w-full h-[34px] rounded-[5px] border-2 border-label px-[10px]",
+                  "w-full h-[34px] rounded-[5px] border-2 border-label",
                   styles.item
                )}
                inputHandler={TagsService.getTagsByInput}

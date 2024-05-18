@@ -23,17 +23,26 @@ const Select = ({
    const [highlitedValue, setHighlitedValue] = useState(0);
    const [selectOptions, setSelectOptions] = useState(options ?? []);
    const [isShow, setIsShow] = useState(false);
+   const [isFocus, setIsFocus] = useState(false);
    const debouncedInputText = useDebounce(text, 200);
    const buttonRef = useRef<HTMLButtonElement>(null);
    const closeOptions = () => {
       setIsShow(false);
    };
+   const selectRef = useOutside<HTMLDivElement>(closeOptions);
    const clearSearchText = () => {
       if (text) {
          setText("");
       }
    };
-   const selectRef = useOutside<HTMLDivElement>(closeOptions);
+   const handleShow = () => {
+      setIsShow((prev) => {
+         if (prev === true) {
+            buttonRef.current!.blur();
+         }
+         return !prev;
+      });
+   };
    const handleSelect = (option: ISelectValue) => {
       if (clearSearchText) {
          clearSearchText();
@@ -60,8 +69,8 @@ const Select = ({
       }
    };
    const handlerKeydown = (e: React.KeyboardEvent) => {
-      console.log("Target: ", e.target);
-      console.log("Current Target: ", e.currentTarget);
+      // console.log("Target: ", e.target);
+      // console.log("Current Target: ", e.currentTarget);
       switch (e.code) {
          case "Escape":
             closeOptions();
@@ -94,7 +103,9 @@ const Select = ({
    const checkIsSelected = (option: ISelectValue) => {
       if (isMultiple) {
          if ((selectedValue as ISelectValue[]).length > 0) {
-            return (selectedValue as ISelectValue[]).includes(option);
+            return (selectedValue as ISelectValue[]).some(
+               (val) => val.id === option.id
+            );
          }
       } else {
          if (selectedValue !== null) {
@@ -102,11 +113,6 @@ const Select = ({
          }
       }
    };
-   /* useEffect(() => {
-      if (selectRef.current) {
-         selectRef.current.focus();
-      }
-   }, [selectedValue, selectRef]); */
    useEffect(() => {
       let isIgnore = false;
       if (debouncedInputText !== null && inputHandlerProp) {
@@ -125,22 +131,30 @@ const Select = ({
    return (
       <div
          className={cn(classnames, styles.wrapper, {
-            [styles._active]: isShow,
+            [styles._active]: isShow || isFocus,
          })}
          ref={selectRef}
          onKeyDown={handlerKeydown}
+         tabIndex={0}
+         onFocus={() => {
+            setIsFocus(true);
+         }}
+         onBlur={() => {
+            setIsFocus(false);
+         }}
       >
          <SelectButton
             placeholder={placeholder}
-            setIsShow={setIsShow}
+            handleShow={handleShow}
             text={text}
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
             setText={setText}
+            isShow={isShow}
             isMultiple={isMultiple}
             ref={buttonRef}
          />
-         {isShow && (
+         {(isShow || isFocus) && (
             <div className={styles.options}>
                {selectOptions.length > 0 ? (
                   <>

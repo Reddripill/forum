@@ -1,7 +1,22 @@
-import { IAnswer, ICreationPostParams, IPost } from "@/types/post.types";
+import { IAnswer, IPost } from "@/types/post.types";
 import { axiosInstance } from "../../axios.config";
 import { IResponse } from "@/types/main.types";
 import { SortingTabNameType } from "@/components/screens/postsFeed/sortingTabs/sortingTabs.data";
+import { IContent } from "@/types/editor.types";
+import { ILoginedUser } from "@/types/auth-user.types";
+
+interface ICreationPostParams {
+   title: string;
+   content: IContent[];
+   tags?: string[];
+   author: ILoginedUser;
+}
+
+interface ICreationAnswerParams {
+   text: IContent[];
+   postId: string;
+   authorId: string;
+}
 
 class Posts {
    async getPosts(sortingType?: SortingTabNameType) {
@@ -28,6 +43,20 @@ class Posts {
          },
       };
       const res = await axiosInstance.post(`/posts`, body);
+   }
+   async createAnswer({ text, postId, authorId }: ICreationAnswerParams) {
+      const body = {
+         data: {
+            author: {
+               set: [authorId],
+            },
+            post: {
+               set: [postId],
+            },
+            content: text,
+         },
+      };
+      const res = await axiosInstance.post(`/answers`, body);
    }
    async changeVote(post: IPost, userId?: string) {
       if (userId) {

@@ -23,12 +23,6 @@ export interface IPost {
    votes: IAuthor[];
    isClosed: boolean;
 }
-export interface ICreationPostParams {
-   title: string;
-   content: IContent[];
-   tags?: string[];
-   author: ILoginedUser;
-}
 
 export interface ITag {
    id: string;

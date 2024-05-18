@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef } from "react";
+import React, { useRef, forwardRef, useEffect } from "react";
 import { SetStateType } from "@/types/main.types";
 import { ChevronDown, X } from "lucide-react";
 import styles from "./Select.module.scss";
@@ -12,16 +12,25 @@ interface IProps {
    selectedValue: SelectValuesType;
    setSelectedValue: SetStateType<SelectValuesType>;
    isMultiple?: boolean;
-   setIsShow: SetStateType<boolean>;
+   handleShow: () => void;
+   isShow: boolean;
 }
 
 const SelectButton = forwardRef<HTMLButtonElement, IProps>(function SelecButton(
-   { placeholder, text, setText, setIsShow, selectedValue, setSelectedValue },
+   {
+      placeholder,
+      text,
+      setText,
+      handleShow,
+      selectedValue,
+      setSelectedValue,
+      isShow,
+   },
    ref
 ) {
    const inputRef = useRef<HTMLInputElement>(null);
    const handlerButtonClick = () => {
-      setIsShow((prev) => !prev);
+      handleShow();
       if (text && inputRef.current) {
          inputRef.current.focus();
       }
@@ -35,15 +44,20 @@ const SelectButton = forwardRef<HTMLButtonElement, IProps>(function SelecButton(
          return filteredValue;
       });
    };
+   useEffect(() => {
+      if (inputRef.current) {
+         isShow ? inputRef.current.focus() : inputRef.current.blur();
+      }
+   }, [isShow]);
    return (
       <button
          className={cn(styles.button)}
          onClick={handlerButtonClick}
          ref={ref}
       >
-         <div className="h-full py-1 overflow-hidden flex justify-between items-center">
+         <div className="h-full py-1 overflow-hidden flex justify-between items-center gap-x-2">
             {text !== null ? (
-               <div className="flex items-center">
+               <div className="flex items-center grow">
                   {(selectedValue as ISelectValue[]).length > 0 && (
                      <div className="flex items-center gap-x-1 mr-2">
                         {(selectedValue as ISelectValue[]).map((item) => (
