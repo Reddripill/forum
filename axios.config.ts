@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const axiosInstance = axios.create({
-   baseURL: "http://localhost:1337/api",
+   baseURL: "https://fortunate-badge-00cc300cbd.strapiapp.com/api",
 });
 
 axiosInstance.interceptors.request.use((config) => {
