@@ -17,7 +17,7 @@ const LoginForm = () => {
       },
       {
          checkKey: CheckKeys.MinLength,
-         errorMessage: "Min length is 3",
+         errorMessage: "Minimum 3 characters",
          value: 3,
       },
    ]);

@@ -30,7 +30,6 @@ const Tiptap = ({
       },
       onUpdate: ({ editor }) => {
          onChange(editor.getHTML());
-         console.log("value as json: ", editor.getJSON());
       },
       onFocus() {
          setIsFocus(true);

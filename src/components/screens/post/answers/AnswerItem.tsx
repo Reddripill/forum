@@ -31,7 +31,6 @@ const AnswerItem = ({ answer }: { answer: IAnswer }) => {
          setIsOpen(!isOpen);
       }
    };
-   console.log("richtext: ", richText);
    if (!answer.author) return null;
    return (
       <div className="mb-5">

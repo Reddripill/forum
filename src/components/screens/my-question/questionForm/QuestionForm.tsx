@@ -33,8 +33,8 @@ const QuestionForm = () => {
    const text = useValidate("", [
       {
          checkKey: CheckKeys.MinLength,
-         value: 10,
-         errorMessage: `Insufficient number of characters`,
+         errorMessage: "Minimum 20 characters",
+         value: 20,
       },
    ]);
    const disabled =
