@@ -1,28 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import useAuth from "@/hooks/useAuth";
-import { signOut } from "next-auth/react";
 import HeaderButton from "@/components/UI/button/headerButton/HeaderButton";
 import { Bell, MoveLeft, PlusCircle, UserPlus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { capitalizeFirstLetter } from "@/utils/capitalizeFirstLetter";
-import Jdenticon from "@/components/UI/Jdenticon";
+import Menu from "./Menu";
 import styles from "./Header.module.scss";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const Header = () => {
-   const [isMenuOpen, setIsMenuOpen] = useState(false);
    const isMobile = useMediaQuery();
    const pathname = usePathname();
    const authPathsArr = ["login", "register"];
    const { user, isLoggedIn } = useAuth();
    const router = useRouter();
-   const logout = async () => {
-      const result = await signOut({ redirect: false });
-      if (result) return router.push("/");
-   };
    const pathnameArr = pathname.split("/").filter((path) => Boolean(path));
    const rootPath = pathnameArr[0];
    return (
@@ -70,39 +64,7 @@ const Header = () => {
                            </Link>
                         )}
                         <Bell size={24} className="text-gray" />
-                        <div className="relative">
-                           <div
-                              className="cursor-pointer"
-                              onClick={() => setIsMenuOpen(!isMenuOpen)}
-                           >
-                              <Jdenticon value={user.username} size={40} />
-                           </div>
-                           {isMenuOpen && (
-                              <div className="absolute w-auto top-full right-0 bg-label px-7 py-2 rounded-md">
-                                 <div className="flex flex-col items-start gap-y-1">
-                                    <button className="text-gray hover:text-black font-bold transition-colors cursor-pointer">
-                                       Profile
-                                    </button>
-                                    {isMobile && (
-                                       <button className="text-gray hover:text-black font-bold transition-colors cursor-pointer">
-                                          <Link
-                                             className="block whitespace-nowrap"
-                                             href="/my-questions/ask"
-                                          >
-                                             New Answer
-                                          </Link>
-                                       </button>
-                                    )}
-                                    <button
-                                       className="text-gray hover:text-black font-bold transition-colors cursor-pointer"
-                                       onClick={logout}
-                                    >
-                                       Logout
-                                    </button>
-                                 </div>
-                              </div>
-                           )}
-                        </div>
+                        <Menu user={user} />
                      </div>
                   ) : (
                      <>

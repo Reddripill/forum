@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
@@ -19,6 +19,7 @@ const Tiptap = ({
    onChange: SetStateType<string>;
    classname?: string;
 }) => {
+   const [isFocus, setIsFocus] = useState(false);
    const editor = useEditor({
       extensions,
       content: text,
@@ -31,12 +32,22 @@ const Tiptap = ({
          onChange(editor.getHTML());
          console.log("value as json: ", editor.getJSON());
       },
+      onFocus() {
+         setIsFocus(true);
+      },
+      onBlur() {
+         setIsFocus(false);
+      },
    });
+   if (!editor) {
+      return null;
+   }
    return (
       <div
          className={cn(
-            "border-2 border-label rounded-[5px] overflow-auto text-sm",
-            classname
+            "border-2 border-label rounded-[5px] overflow-auto text-sm transition-colors duration-300 outline-none",
+            classname,
+            { "border-orange": isFocus }
          )}
       >
          <TiptapToolbar

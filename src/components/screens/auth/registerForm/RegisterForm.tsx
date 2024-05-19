@@ -11,17 +11,32 @@ const RegisterForm = () => {
    const [isLoading, setIsLoading] = useState(false);
    const router = useRouter();
    const username = useValidate("", [
-      { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      {
+         checkKey: CheckKeys.Empty,
+         errorMessage: "Username field is mandatory",
+      },
    ]);
    const email = useValidate("", [
-      { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      { checkKey: CheckKeys.Empty, errorMessage: "Email field is mandatory" },
    ]);
    const password = useValidate("", [
-      { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      {
+         checkKey: CheckKeys.Empty,
+         errorMessage: "Password field is mandatory",
+      },
    ]);
    const submittedPassword = useValidate(
       "",
-      [{ checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" }],
+      [
+         {
+            checkKey: CheckKeys.Empty,
+            errorMessage: "Repeat password field is mandatory",
+         },
+         {
+            checkKey: CheckKeys.Equality,
+            errorMessage: "Passwords don't equal",
+         },
+      ],
       password.value
    );
    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,6 +92,7 @@ const RegisterForm = () => {
             type="password"
             validate={submittedPassword}
             className="mb-4"
+            onFocus={() => submittedPassword.setIsPure(true)}
          />
          {error && (
             <div className="text-error text-xs tracking-[0.2px] font-medium leading-[20px] mb-4">

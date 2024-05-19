@@ -128,6 +128,16 @@ const Select = ({
          isIgnore = true;
       };
    }, [debouncedInputText, inputHandlerProp]);
+   if (!isFocus && isShow) {
+      setIsShow(false);
+   }
+   // Try it
+   /* useEffect(() => {
+      if (!isFocus) {
+         setIsShow(false);
+      }
+   }, [isFocus]); */
+   // BAD CODE
    return (
       <div
          className={cn(classnames, styles.wrapper, {

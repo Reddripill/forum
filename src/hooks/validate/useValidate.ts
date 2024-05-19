@@ -20,6 +20,7 @@ export interface IValidate {
    allErrors: CheckKeysType[];
    isValid: boolean;
    isPure: boolean;
+   setIsPure: SetStateType<boolean>;
 }
 
 const useCheckValue = (
@@ -55,18 +56,29 @@ const useCheckValue = (
                      }
                   }
                   break;
-               case CheckKeys.MinLength: {
-                  const minLength = key.value ? key.value : 1;
-                  if (value.length < minLength) {
-                     addError(key);
-                  } else {
-                     removeError(key);
+               case CheckKeys.MinLength:
+                  {
+                     const minLength = key.value ? key.value : 1;
+                     if (value.length < minLength) {
+                        addError(key);
+                     } else {
+                        removeError(key);
+                     }
                   }
-               }
+                  break;
+               case CheckKeys.Equality:
+                  {
+                     if ((comparedValue as string) !== value) {
+                        addError(key);
+                     } else {
+                        removeError(key);
+                     }
+                  }
+                  break;
             }
          }
       }
-   }, [value, isPure, keys]);
+   }, [value, isPure, keys, comparedValue]);
    return error;
 };
 
@@ -98,5 +110,6 @@ export const useValidate = (
       allErrors: error,
       isValid,
       isPure,
+      setIsPure,
    };
 };

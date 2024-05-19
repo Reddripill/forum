@@ -1,12 +1,18 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, {
+   useState,
+   useEffect,
+   useRef,
+   HTMLInputTypeAttribute,
+   InputHTMLAttributes,
+} from "react";
 import styles from "./AuthInput.module.scss";
 import cn from "classnames";
 import { XCircle } from "lucide-react";
 import { Check } from "lucide-react";
 import { IValidate } from "@/hooks/validate/useValidate";
 
-interface IProps {
+interface IProps extends InputHTMLAttributes<HTMLInputElement> {
    name: string;
    validate: IValidate;
    className?: string;
@@ -14,7 +20,14 @@ interface IProps {
    type?: React.HTMLInputTypeAttribute;
 }
 
-const AuthInput = ({ name, className, type, validate, autoFocus }: IProps) => {
+const AuthInput = ({
+   name,
+   className,
+   type,
+   validate,
+   autoFocus,
+   ...inputAttributes
+}: IProps) => {
    const [isFocused, setIsFocused] = useState(false);
    const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,6 +57,7 @@ const AuthInput = ({ name, className, type, validate, autoFocus }: IProps) => {
             }}
             autoComplete="new-password"
             ref={inputRef}
+            {...inputAttributes}
          />
          {!validate.isPure && (
             <div className={styles.validation}>

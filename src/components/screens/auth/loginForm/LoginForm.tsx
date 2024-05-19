@@ -11,7 +11,10 @@ const LoginForm = () => {
    const [isLoading, setIsLoading] = useState(false);
    const router = useRouter();
    const username = useValidate("", [
-      { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      {
+         checkKey: CheckKeys.Empty,
+         errorMessage: "Username field is mandatory",
+      },
       {
          checkKey: CheckKeys.MinLength,
          errorMessage: "Min length is 3",
@@ -19,7 +22,10 @@ const LoginForm = () => {
       },
    ]);
    const password = useValidate("", [
-      { checkKey: CheckKeys.Empty, errorMessage: "This field is mandatory" },
+      {
+         checkKey: CheckKeys.Empty,
+         errorMessage: "Password field is mandatory",
+      },
    ]);
    const error = username.error || password.error;
    const isDisabled = !username.isValid || !password.isValid || isLoading;

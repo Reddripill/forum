@@ -17,12 +17,9 @@ const TiptapToolbar = ({
    editor,
    classname,
 }: {
-   editor: Editor | null;
+   editor: Editor;
    classname: string;
 }) => {
-   if (!editor) {
-      return null;
-   }
    return (
       <div className={cn(styles.wrapper, classname ? classname : "")}>
          <button
@@ -37,80 +34,59 @@ const TiptapToolbar = ({
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("italic"),
             })}
+            onClick={() => editor.chain().focus().toggleItalic().run()}
          >
-            <Italic
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleItalic().run()}
-               size={16}
-            />
+            <Italic className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("underline"),
             })}
+            onClick={() => editor.chain().focus().toggleUnderline().run()}
          >
-            <Underline
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleUnderline().run()}
-               size={16}
-            />
+            <Underline className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("strike"),
             })}
+            onClick={() => editor.chain().focus().toggleStrike().run()}
          >
-            <Strikethrough
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleStrike().run()}
-               size={16}
-            />
+            <Strikethrough className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("code"),
             })}
+            onClick={() => editor.chain().focus().toggleCode().run()}
          >
-            <Code
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleCode().run()}
-               size={16}
-            />
+            <Code className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("link"),
             })}
+            onClick={() =>
+               editor.chain().focus().toggleLink({ href: "" }).run()
+            }
          >
-            <Link
-               className={styles.icon}
-               onClick={() =>
-                  editor.chain().focus().toggleLink({ href: "" }).run()
-               }
-               size={16}
-            />
+            <Link className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("bulletList"),
             })}
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
          >
-            <List
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleBulletList().run()}
-               size={16}
-            />
+            <List className={styles.icon} size={16} />
          </button>
          <button
             className={cn(styles.mark, {
                [styles._active]: editor.isActive("orderedList"),
             })}
+            onClick={() => editor.chain().focus().toggleOrderedList().run()}
          >
-            <ListOrdered
-               className={styles.icon}
-               onClick={() => editor.chain().focus().toggleOrderedList().run()}
-               size={16}
-            />
+            <ListOrdered className={styles.icon} size={16} />
          </button>
       </div>
    );
